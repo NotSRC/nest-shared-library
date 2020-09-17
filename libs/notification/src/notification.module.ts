@@ -40,28 +40,23 @@ export class NotificationModule {
   }
 
   static async registerAsync(asyncOptions: NotificationModuleAsyncOptions): Promise<DynamicModule> {
-    const asyncProviders = await this.createAsyncProviders(asyncOptions);
-
     const optionsProvider = {
       provide: 'NotificationModuleOptions',
-      inject: ['NotificationModuleOptions'],
-      useFactory: async (options: NotificationModuleOptions) => {
-        console.log(options);
-        return options;
-      }
+      useFactory: asyncOptions.useFactory,
+      inject: asyncOptions.inject || [],
     };
 
     return {
       global: true,
       module: NotificationModule,
-      providers: [NotificationService, EmailNotificationService, ...asyncProviders, optionsProvider],
+      providers: [NotificationService, EmailNotificationService],
       exports: [NotificationService, EmailNotificationService],
       imports: [
         ...asyncOptions.imports,
         ClientsModule.registerAsync([
           {
-            imports: asyncOptions.imports,
             name: NOTIFICATION_SERVICE_NAME,
+            extraProviders: [optionsProvider],
             inject: ['NotificationModuleOptions'],
             useFactory: (options: NotificationModuleOptions) => ({
               transport: Transport.TCP,
@@ -82,7 +77,7 @@ export class NotificationModule {
 
   private static createAsyncOptionsProvider(options: NotificationModuleAsyncOptions): Provider {
     return {
-      provide: 'NotificationModuleOptions',
+      provide: 'NOTIFICATION_OPTIONS',
       useFactory: options.useFactory,
       inject: options.inject || [],
     }
