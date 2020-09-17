@@ -1,7 +1,7 @@
 import {Module} from '@nestjs/common';
 import {NotificationService} from './notification.service';
 import {ClientsModule, Transport} from '@nestjs/microservices';
-import {NOTIFICATION_SERVICE_NAME} from 'dm/notification/notification.constants';
+import {NOTIFICATION_SERVICE_NAME} from './notification.constants';
 
 @Module({
   providers: [NotificationService],

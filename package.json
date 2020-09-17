@@ -7,10 +7,10 @@
   "license": "UNLICENSED",
   "main": "dist/libs/index.js",
   "scripts": {
-    "postinstall": "nest build libraries --tsc",
+    "postinstall": "npm run build",
     "prepare": "postinstall",
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "nest build libraries --tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
@@ -19,7 +19,6 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
-  "postinstall": "nest build libraries --tsc",
   "dependencies": {
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
@@ -68,10 +67,6 @@
     "roots": [
       "<rootDir>/src/",
       "<rootDir>/libs/"
-    ],
-    "moduleNameMapper": {
-      "dm/notification/(.*)": "<rootDir>/libs/notification/src/$1",
-      "dm/notification": "<rootDir>/libs/notification/src"
-    }
+    ]
   }
 }

@@ -10,14 +10,6 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true,
-    "paths": {
-      "dm/notification": [
-        "libs/notification/src"
-      ],
-      "dm/notification/*": [
-        "libs/notification/src/*"
-      ]
-    }
+    "incremental": true
   }
 }
