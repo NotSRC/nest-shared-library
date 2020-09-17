@@ -2,10 +2,11 @@ import {Module} from '@nestjs/common';
 import {NotificationService} from './notification.service';
 import {ClientsModule, Transport} from '@nestjs/microservices';
 import {NOTIFICATION_SERVICE_NAME} from './notification.constants';
+import {EmailNotificationService} from './email-notification/email-notification.service';
 
 @Module({
-  providers: [NotificationService],
-  exports: [NotificationService],
+  providers: [NotificationService, EmailNotificationService],
+  exports: [NotificationService, EmailNotificationService],
   imports: [
     ClientsModule.register([
       {
