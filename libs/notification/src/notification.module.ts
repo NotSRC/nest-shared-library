@@ -42,31 +42,45 @@ export class NotificationModule {
   static async registerAsync(asyncOptions: NotificationModuleAsyncOptions): Promise<DynamicModule> {
     const asyncProviders = await this.createAsyncProviders(asyncOptions);
 
-    const connectionProvider = {
-      provide: 'NOTIFICATION_OPTIONS',
-      inject: ['NotificationModuleOptions'],
-      useFactory: async (options: NotificationModuleOptions) => {
-        console.log(options);
-        return ClientsModule.register([
-          {
-            name: NOTIFICATION_SERVICE_NAME,
-            transport: Transport.TCP,
-            options: {
-              host: options.host,
-              port: options.port,
-            },
-          }
-        ])
-      }
-    };
+    // const connectionProvider = {
+    //   provide: 'NOTIFICATION_OPTIONS',
+    //   inject: ['NotificationModuleOptions'],
+    //   useFactory: async (options: NotificationModuleOptions) => {
+    //     console.log(options);
+    //     return options;
+    //     // return ClientsModule.register([
+    //     //   {
+    //     //     name: NOTIFICATION_SERVICE_NAME,
+    //     //     transport: Transport.TCP,
+    //     //     options: {
+    //     //       host: options.host,
+    //     //       port: options.port,
+    //     //     },
+    //     //   }
+    //     // ])
+    //   }
+    // };
 
     return {
       global: true,
       module: NotificationModule,
-      providers: [NotificationService, EmailNotificationService, ...asyncProviders, connectionProvider],
+      providers: [NotificationService, EmailNotificationService, ...asyncProviders],
       exports: [NotificationService, EmailNotificationService],
       imports: [
-        ...asyncOptions.imports
+        ...asyncOptions.imports,
+        ClientsModule.registerAsync([
+          {
+            name: NOTIFICATION_SERVICE_NAME,
+            inject: ['NotificationModuleOptions'],
+            useFactory: (options: NotificationModuleOptions) => ({
+              transport: Transport.TCP,
+              options: {
+                host: options.host,
+                port: options.port,
+              },
+            })
+          }
+        ])
       ],
     };
   }
