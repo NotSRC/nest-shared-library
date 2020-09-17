@@ -1,11 +1,10 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
   "projects": {
     "libraries": {
       "type": "library",
       "root": "libs",
-      "entryFile": "public-api",
+      "entryFile": "index",
       "sourceRoot": "libs",
       "compilerOptions": {
         "tsConfigPath": "libs/tsconfig.libs.json"
@@ -13,6 +12,7 @@
     }
   },
   "compilerOptions": {
-    "webpack": true
+    "webpack": false,
+    "tsConfigPath": "libs/tsconfig.libs.json"
   }
 }

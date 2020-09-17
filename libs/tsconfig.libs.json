@@ -4,6 +4,6 @@
     "declaration": true,
     "outDir": "../"
   },
-  "include": ["**/*"],
+  "outDir": "../",
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
