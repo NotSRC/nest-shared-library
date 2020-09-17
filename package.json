@@ -13,7 +13,7 @@
     "notification.module.d.ts",
     "notification.service.d.ts",
     "email-notification/email-notification.model.d.ts",
-    "email-notification/email-notification.service.d.ts",
+    "email-notification/email-notification.service.d.ts"
   ],
   "scripts": {
     "postinstall": "npm run build",
