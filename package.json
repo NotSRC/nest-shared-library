@@ -10,6 +10,7 @@
     "index.js",
     "index.d.ts",
     "notification/**/*.js",
+    "notification/src/index.d.ts",
     "notification/src/notification.module.d.ts",
     "notification/src/notification.service.d.ts"
   ],
