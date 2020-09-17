@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "files": [
-    "index.js", "index.d.ts"
+    "index.js", "index.d.ts", "notification/src/index.js"
   ],
   "scripts": {
     "postinstall": "npm run build",
