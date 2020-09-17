@@ -1,6 +1,6 @@
 {
   "name": "shared-nest-library",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "",
   "author": "",
   "private": true,
@@ -9,9 +9,13 @@
   "files": [
     "index.d.ts",
     "notification.module.d.ts",
+    "notification.module.js",
     "notification.service.d.ts",
+    "notification.service.js",
     "email-notification/email-notification.model.d.ts",
-    "email-notification/email-notification.service.d.ts"
+    "email-notification/email-notification.model.js",
+    "email-notification/email-notification.service.d.ts",
+    "email-notification/email-notification.service.js"
   ],
   "scripts": {
     "postinstall": "npm run build",
