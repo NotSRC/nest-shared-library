@@ -6,10 +6,6 @@ export class NotificationService {
   constructor(public email: EmailNotificationService) {
 
   }
-
-  send() {
-    console.log('dfgdfg');
-  }
 }
 
 
