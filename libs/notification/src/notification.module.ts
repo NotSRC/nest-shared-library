@@ -1,4 +1,4 @@
-import {DynamicModule, Module, ModuleMetadata, Provider, Type} from '@nestjs/common';
+import {DynamicModule, Module, ModuleMetadata} from '@nestjs/common';
 import {NotificationService} from './notification.service';
 import {ClientsModule, Transport} from '@nestjs/microservices';
 import {NOTIFICATION_SERVICE_NAME} from './notification.constants';
@@ -69,18 +69,6 @@ export class NotificationModule {
         ])
       ],
     };
-  }
-
-  private static createAsyncProviders(options: NotificationModuleAsyncOptions): Provider[] {
-    return [this.createAsyncOptionsProvider(options)]
-  }
-
-  private static createAsyncOptionsProvider(options: NotificationModuleAsyncOptions): Provider {
-    return {
-      provide: 'NOTIFICATION_OPTIONS',
-      useFactory: options.useFactory,
-      inject: options.inject || [],
-    }
   }
 
 }
