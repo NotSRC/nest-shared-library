@@ -5,11 +5,10 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "main": "dist/libs/public-api.js",
+  "main": "index.js",
   "scripts": {
     "postinstall": "npm run build",
     "prepare": "postinstall",
-    "prebuild": "rimraf dist",
     "build": "nest build libraries --tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -23,10 +22,8 @@
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/microservices": "^7.4.4",
-    "@nestjs/platform-express": "^7.0.0",
     "postinstall": "^0.7.0",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
