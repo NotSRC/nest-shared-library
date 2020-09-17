@@ -1,12 +1,13 @@
 {
   "name": "shared-nest-library",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "main": "libs/index.ts",
+  "main": "dist/libs/index.js",
   "scripts": {
+    "postinstall": "postinstall",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
@@ -17,11 +18,15 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
+  "postinstall": {
+    "build": "nest build libraries --tsc"
+  },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/microservices": "^7.4.4",
     "@nestjs/platform-express": "^7.0.0",
+    "postinstall": "^0.7.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4"
