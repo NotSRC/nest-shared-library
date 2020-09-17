@@ -1,6 +1,6 @@
 {
   "name": "shared-nest-library",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "author": "",
   "private": true,
@@ -8,6 +8,7 @@
   "main": "dist/libs/index.js",
   "scripts": {
     "postinstall": "postinstall",
+    "prepare": "postinstall",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
