@@ -41,7 +41,7 @@ export class NotificationModule {
 
   static async forRootAsync(asyncOptions: NotificationModuleAsyncOptions): Promise<DynamicModule> {
 
-    const options = await asyncOptions.useFactory(asyncOptions.inject);
+    const options = await asyncOptions.useFactory(...asyncOptions.inject);
     return {
       global: true,
       module: NotificationModule,
