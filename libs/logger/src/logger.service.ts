@@ -1,22 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SentryService } from '@ntegral/nestjs-sentry';
 
 @Injectable()
-export class DmLoggerService extends SentryService {
+export class DmLoggerService extends Logger {
 
-  app: string = 'dm-logger-module: ';
+  constructor(private sentryService: SentryService) {
+    super();
+  }
 
-  captureException(exception: any) {
+  error(exception: Object|string, context?: string): void {
+    try {
+      this.captureException(exception, context);
+      super.error(exception, null, context);
+    } catch (err) {  }
+  }
+
+  warn(exception: Object|string, trace?: string): void {
+    try {
+      this.captureException(exception);
+      super.warn(exception, trace);
+    } catch (err) {  }
+  }
+
+  captureException(exception: Object|string, context?: string) {
 
     let json;
     try {
-      json = JSON.stringify(exception);
+      json = JSON.stringify({context: context, exception});
     } catch (e) {
       json = exception;
     }
 
     try {
-      this.instance().captureException(json);
+      this.sentryService.instance().captureException(json);
     } catch (e) {
       
     }
