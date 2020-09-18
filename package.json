@@ -17,7 +17,6 @@
   ],
   "scripts": {
     "postinstall": "npm run build",
-    "prepare": "postinstall",
     "build": "nest build libraries",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
