@@ -51,7 +51,7 @@ export class NotificationModule {
       providers: [NotificationService, EmailNotificationService],
       exports: [NotificationService, EmailNotificationService],
       imports: [
-        ...asyncOptions.imports,
+        ...asyncOptions.imports || [],
         ClientsModule.registerAsync([
           {
             name: 'NOTIFICATION_SERVICE',

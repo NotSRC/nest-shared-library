@@ -41,7 +41,7 @@ export class LoggerModule {
       providers: [DmLoggerService, optionsProvider],
       exports: [DmLoggerService, optionsProvider],
       imports: [
-        ...asyncOptions.imports,
+        ...asyncOptions.imports || [],
         SentryModule.forRootAsync({
           inject: ['LoggerModuleOptions'],
           useFactory: (options: LoggerModuleOptions) => {
