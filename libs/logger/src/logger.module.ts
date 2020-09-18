@@ -3,7 +3,7 @@ import { DmLoggerService } from './logger.service';
 import { SentryModule } from '@ntegral/nestjs-sentry';
 import { SentryModuleOptions } from '@ntegral/nestjs-sentry/lib/interfaces/sentry-options.interface';
 
-interface LoggerModuleOptions extends SentryModuleOptions{
+interface LoggerModuleOptions extends SentryModuleOptions {
 
 }
 
