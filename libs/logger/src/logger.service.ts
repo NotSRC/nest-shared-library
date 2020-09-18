@@ -3,6 +3,9 @@ import { SentryService } from '@ntegral/nestjs-sentry';
 
 @Injectable()
 export class DmLoggerService extends SentryService {
+
+  app: string = 'dm-logger-module: ';
+
   captureException(exception: any) {
 
     let json;
@@ -12,7 +15,11 @@ export class DmLoggerService extends SentryService {
       json = exception;
     }
 
-    this.instance().captureException(json);
+    try {
+      this.instance().captureException(json);
+    } catch (e) {
+      
+    }
   }
 }
 
