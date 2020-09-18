@@ -1,3 +1,3 @@
 export * from './logger.module';
 export * from './logger.service';
-import * as Sentry from '@sentry/node';
+export * from './logger.interceptor';
