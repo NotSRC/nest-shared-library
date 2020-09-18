@@ -1,7 +1,7 @@
 {
   "name": "shared-nest-library",
   "version": "0.0.30",
-  "tag": "v0.1.1",
+  "tag": "v0.1.2",
   "description": "",
   "author": "",
   "private": true,
@@ -18,6 +18,12 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
+  "files": [
+    "*.js",
+    "**/*.js",
+    "logger/**/*",
+    "notification/**/*"
+  ],
   "dependencies": {
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
