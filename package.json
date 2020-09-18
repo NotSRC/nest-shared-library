@@ -1,6 +1,6 @@
 {
   "name": "shared-nest-library",
-  "version": "0.0.28",
+  "version": "0.0.30",
   "description": "",
   "author": "",
   "private": true,
@@ -16,7 +16,7 @@
     "email-notification/email-notification.service.d.ts"
   ],
   "scripts": {
-    "postinstall": "npm run build",
+    "prepare": "npm run build",
     "build": "nest build libraries",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
