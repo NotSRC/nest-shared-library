@@ -45,6 +45,7 @@ export class LoggerModule {
         SentryModule.forRootAsync({
           inject: ['LoggerModuleOptions'],
           useFactory: (options: LoggerModuleOptions) => {
+            console.log(options);
             return options;
           }
         })
