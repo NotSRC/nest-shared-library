@@ -2,6 +2,7 @@ import { DynamicModule, Module, ModuleMetadata } from '@nestjs/common';
 import { DmLoggerService } from './logger.service';
 import { SentryModule } from '@ntegral/nestjs-sentry';
 import { SentryModuleOptions } from '@ntegral/nestjs-sentry/lib/interfaces/sentry-options.interface';
+import { DmLoggerInterceptor } from './logger.interceptor';
 
 interface LoggerModuleOptions extends SentryModuleOptions {
 
@@ -20,8 +21,8 @@ export class LoggerModule {
     return {
       global: true,
       module: LoggerModule,
-      providers: [DmLoggerService],
-      exports: [DmLoggerService],
+      providers: [DmLoggerService, DmLoggerInterceptor],
+      exports: [DmLoggerService, DmLoggerInterceptor],
       imports: [
         SentryModule.forRoot(options),
       ],
@@ -38,8 +39,8 @@ export class LoggerModule {
     return {
       global: true,
       module: LoggerModule,
-      providers: [DmLoggerService, optionsProvider],
-      exports: [DmLoggerService, optionsProvider],
+      providers: [DmLoggerService, DmLoggerInterceptor, optionsProvider],
+      exports: [DmLoggerService, DmLoggerInterceptor, optionsProvider],
       imports: [
         ...asyncOptions.imports || [],
         SentryModule.forRootAsync({

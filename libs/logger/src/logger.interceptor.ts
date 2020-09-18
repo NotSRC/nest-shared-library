@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { SentryService } from '@ntegral/nestjs-sentry';
+import { SentryInterceptor } from '@ntegral/nestjs-sentry/dist/services/sentry.interceptor';
 
 @Injectable()
-export class DmLoggerService extends SentryService {
+export class DmLoggerInterceptor extends SentryInterceptor {
 
 }
+
 
 
