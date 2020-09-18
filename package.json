@@ -6,15 +6,6 @@
   "private": true,
   "license": "UNLICENSED",
   "main": "index.js",
-  "files": [
-    "*.js",
-    "**/*.js",
-    "index.d.ts",
-    "notification.module.d.ts",
-    "notification.service.d.ts",
-    "email-notification/email-notification.model.d.ts",
-    "email-notification/email-notification.service.d.ts"
-  ],
   "scripts": {
     "prepare": "npm run build",
     "build": "nest build libraries",
@@ -30,6 +21,7 @@
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/microservices": "^7.4.4",
+    "@ntegral/nestjs-sentry": "^1.0.4",
     "postinstall": "^0.7.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4"

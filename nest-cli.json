@@ -5,14 +5,14 @@
       "type": "library",
       "root": "libs",
       "entryFile": "index",
-      "sourceRoot": "libs/notification/src",
+      "sourceRoot": "libs",
       "compilerOptions": {
-        "tsConfigPath": "libs/notification/src/tsconfig.lib.json"
+        "tsConfigPath": "libs/tsconfig.libs.json"
       }
     }
   },
   "compilerOptions": {
     "webpack": false,
-    "tsConfigPath": "libs/notification/src/tsconfig.libs.json"
+    "tsConfigPath": "libs/tsconfig.libs.json"
   }
 }

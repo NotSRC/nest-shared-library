@@ -1,8 +1,7 @@
-import {DynamicModule, Module, ModuleMetadata} from '@nestjs/common';
-import {NotificationService} from './notification.service';
-import {ClientsModule, Transport} from '@nestjs/microservices';
-import {NOTIFICATION_SERVICE_NAME} from './notification.constants';
-import {EmailNotificationService} from './email-notification/email-notification.service';
+import { DynamicModule, Module, ModuleMetadata } from '@nestjs/common';
+import { NotificationService } from './notification.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { EmailNotificationService } from './email-notification/email-notification.service';
 
 interface NotificationModuleOptions {
   host: string;
@@ -27,15 +26,15 @@ export class NotificationModule {
       imports: [
         ClientsModule.register([
           {
-            name: NOTIFICATION_SERVICE_NAME,
+            name: 'NOTIFICATION_SERVICE',
             transport: Transport.TCP,
             options: {
               host: options.host,
               port: options.port,
             },
-          }
-        ])
-      ]
+          },
+        ]),
+      ],
     };
   }
 
@@ -55,7 +54,7 @@ export class NotificationModule {
         ...asyncOptions.imports,
         ClientsModule.registerAsync([
           {
-            name: NOTIFICATION_SERVICE_NAME,
+            name: 'NOTIFICATION_SERVICE',
             extraProviders: [optionsProvider],
             inject: ['NotificationModuleOptions'],
             useFactory: (options: NotificationModuleOptions) => ({
@@ -64,9 +63,9 @@ export class NotificationModule {
                 host: options.host,
                 port: options.port,
               },
-            })
-          }
-        ])
+            }),
+          },
+        ]),
       ],
     };
   }
