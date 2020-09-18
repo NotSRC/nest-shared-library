@@ -1,6 +1,7 @@
 {
   "name": "shared-nest-library",
   "version": "0.0.30",
+  "tag": "v0.1.1",
   "description": "",
   "author": "",
   "private": true,
