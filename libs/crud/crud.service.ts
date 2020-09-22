@@ -1,39 +1,73 @@
 import { Document, PaginateModel } from 'mongoose';
 import { FilterService } from '../filter/filter.service';
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';
+import { DmLoggerService } from '../logger/src';
 
 export abstract class CrudService<CreateType, UpdateType> {
-  constructor(protected stateModel: PaginateModel<Document>) {}
+  constructor(
+    protected stateModel: PaginateModel<Document>,
+    protected logger: DmLoggerService,
+  ) {}
 
   async findMany(conditions: Object, params: QueryDto) {
     const query = this.buildQuery(conditions, params.filter);
-    return await this.stateModel.paginate(query, {
-      page: params.page,
-      limit: params.perPage,
-      sort: params.getSort(),
-    });
+    try {
+      return await this.stateModel.paginate(query, {
+        page: params.page,
+        limit: params.perPage,
+        sort: params.getSort(),
+      });
+    } catch (e) {
+      this.logger.error(e, 'CrudService->findMany');
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async getTotalCount(conditions: Object, params: QueryDto) {
     const query = this.buildQuery(conditions, params.filter);
-    return await this.stateModel.count(query);
+    try {
+      return await this.stateModel.count(query);
+    } catch (e) {
+      this.logger.error(e, 'CrudService->getTotalCount');
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async findOne(conditions: { _id: string }) {
-    return await this.stateModel.findOne(conditions);
+    try {
+      return await this.stateModel.findOne(conditions);
+    } catch (e) {
+      this.logger.error(e, 'CrudService->findOne');
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async createItem(data: CreateType) {
-    return await this.stateModel.create(data);
+    try {
+      return await this.stateModel.create(data);
+    } catch (e) {
+      this.logger.error(e, 'CrudService->createItem');
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async updateItem(conditions: { _id: string }, data: UpdateType) {
-    return await this.stateModel.updateOne(conditions, data);
+    try {
+      return await this.stateModel.updateOne(conditions, data);
+    } catch (e) {
+      this.logger.error(e, 'CrudService->updateItem');
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async deleteItem(conditions: { _id: string }) {
-    return await this.stateModel.updateOne(conditions, { isRemoved: true });
+    try {
+      return await this.stateModel.updateOne(conditions, { isRemoved: true });
+    } catch (e) {
+      this.logger.error(e, 'CrudService->deleteItem');
+      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   protected buildQuery(conditions: Object, filterJSON: string) {
@@ -58,3 +92,4 @@ export abstract class CrudService<CreateType, UpdateType> {
     return { isRemoved: false, ...params };
   }
 }
+
