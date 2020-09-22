@@ -14,7 +14,7 @@ export class FilterService {
     try {
       this.filters = plainToClass(
         FilterInput,
-        JSON.parse(filtersJson) as any[],
+        JSON.parse(filtersJson) as FilterInput[],
       );
     } catch (e) {
     }

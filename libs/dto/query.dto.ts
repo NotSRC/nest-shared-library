@@ -1,7 +1,7 @@
 import { Allow, IsJSON, IsOptional, Max, Min } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-enum SortDirection {
+export enum SortDirection {
   Asc = 'ASC',
   Desc = 'DESC',
 }
