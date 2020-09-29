@@ -15,7 +15,7 @@ export abstract class CrudService<CreateType, UpdateType> {
     try {
       return await this.stateModel.paginate(query, {
         page: params.page,
-        limit: params.perPage,
+        limit: params.limit,
         sort: params.getSort(),
       });
     } catch (e) {

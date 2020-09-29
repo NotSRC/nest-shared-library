@@ -15,7 +15,7 @@ export class QueryDto {
   @Allow()
   @Max(99)
   @Transform(value => parseInt(value || 10, 10))
-  perPage: number = 10;
+  limit: number = 25;
 
   @Allow()
   @IsJSON()
