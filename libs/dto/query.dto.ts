@@ -2,8 +2,8 @@ import { Allow, IsJSON, IsOptional, Max, Min } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export enum SortDirection {
-  Asc = 'ASC',
-  Desc = 'DESC',
+  Asc = 'asc',
+  Desc = 'desc',
 }
 
 export class QueryDto {
