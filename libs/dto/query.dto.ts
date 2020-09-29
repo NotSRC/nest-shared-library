@@ -26,11 +26,11 @@ export class QueryDto {
   private sortField: string = 'createdAt';
 
   @Allow()
-  private sortDirection: SortDirection = SortDirection.Desc;
+  private sortDirection: SortDirection = SortDirection.Asc;
 
   getSort() {
     return {
-      [this.sortField]: this.sortDirection === SortDirection.Asc ? 1 : -1,
+      [this.sortField]: this.sortDirection === SortDirection.Asc ? -1 : 1,
     };
   }
 }
