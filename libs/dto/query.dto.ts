@@ -30,7 +30,7 @@ export class QueryDto {
 
   getSort() {
     return {
-      [this.sortField]: this.sortDirection === SortDirection.Asc ? -1 : 1,
+      [this.sortField]: this.sortDirection === SortDirection.Asc ? 1 : -1,
     };
   }
 }
