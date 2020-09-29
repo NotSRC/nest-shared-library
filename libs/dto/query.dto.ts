@@ -26,7 +26,7 @@ export class QueryDto {
   private sortField: string = 'createdAt';
 
   @Allow()
-  private sortDirection: SortDirection = SortDirection.Asc;
+  private sortDirection: SortDirection = SortDirection.Desc;
 
   getSort() {
     return {
