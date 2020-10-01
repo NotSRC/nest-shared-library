@@ -1,24 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
-import { User } from './shemas/user.schema';
+import { Comment } from './shemas/comment.schema';
 import { CrudService } from '../../../crud/crud.service';
 import { DmLoggerService } from '../../../logger/src';
-import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
-export class UserService extends CrudService<CreateUserDto, any> {
-
+export class CommentService<T, D> extends CrudService<T, D> {
   constructor(
-    @InjectModel('User')
-    protected stateModel: PaginateModel<User>,
+    @InjectModel('Comment')
+    protected stateModel: PaginateModel<Comment>,
     protected logger: DmLoggerService,
   ) {
     super(stateModel, logger);
-  }
-
-  // @ts-ignore
-  findOne(conditions: { email: string }) {
-    return super.findOne(conditions as any);
   }
 }
