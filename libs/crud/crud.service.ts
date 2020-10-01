@@ -1,4 +1,4 @@
-import { Document, PaginateModel } from 'mongoose';
+import { Document, PaginateModel, QueryPopulateOptions } from 'mongoose';
 import { FilterService } from '../filter/filter.service';
 import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';
@@ -10,13 +10,14 @@ export abstract class CrudService<CreateType, UpdateType> {
     protected logger: DmLoggerService,
   ) {}
 
-  findMany(conditions: Object, params: QueryDto) {
+  findMany(conditions: Object, params: QueryDto, populate: QueryPopulateOptions[] = []) {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.paginate(query, {
         page: params.page,
         limit: params.limit,
         sort: params.getSort(),
+        populate: populate
       });
     } catch (e) {
       this.logger.error(e, 'CrudService->findMany');
