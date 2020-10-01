@@ -41,7 +41,6 @@ export class User extends Document {
   role: UserRole;
 
   @Prop({
-    type: String,
     default: 'en',
   })
   language: string;
