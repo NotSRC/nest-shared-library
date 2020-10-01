@@ -26,6 +26,7 @@
     "logger/**/*",
     "notification/**/*",
     "filter/**/*",
+    "user/**/*",
     "crud/**/*",
     "dto/**/*"
   ],
