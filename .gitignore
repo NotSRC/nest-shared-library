@@ -1,7 +1,13 @@
 # compiled output
 /dist
 /node_modules
+/services
+/filter
+/crud
+/dto
 /notification
+/comment
+/user
 *.d.ts
 *.d.ts.map
 *.js
