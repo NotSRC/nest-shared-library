@@ -10,10 +10,10 @@ export abstract class CrudService<CreateType, UpdateType> {
     protected logger: DmLoggerService,
   ) {}
 
-  async findMany(conditions: Object, params: QueryDto) {
+  findMany(conditions: Object, params: QueryDto) {
     const query = this.buildQuery(conditions, params.filter);
     try {
-      return await this.stateModel.paginate(query, {
+      return this.stateModel.paginate(query, {
         page: params.page,
         limit: params.limit,
         sort: params.getSort(),
@@ -24,46 +24,46 @@ export abstract class CrudService<CreateType, UpdateType> {
     }
   }
 
-  async getTotalCount(conditions: Object, params: QueryDto) {
+  getTotalCount(conditions: Object, params: QueryDto) {
     const query = this.buildQuery(conditions, params.filter);
     try {
-      return await this.stateModel.count(query);
+      return this.stateModel.count(query);
     } catch (e) {
       this.logger.error(e, 'CrudService->getTotalCount');
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async findOne(conditions: { _id: string }) {
+  findOne(conditions: { _id: string }) {
     try {
-      return await this.stateModel.findOne(conditions);
+      return this.stateModel.findOne(conditions);
     } catch (e) {
       this.logger.error(e, 'CrudService->findOne');
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async createItem(data: CreateType) {
+  createItem(data: CreateType) {
     try {
-      return await this.stateModel.create(data);
+      return this.stateModel.create(data);
     } catch (e) {
       this.logger.error(e, 'CrudService->createItem');
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async updateItem(conditions: { _id: string }, data: UpdateType) {
+  updateItem(conditions: { _id: string }, data: UpdateType) {
     try {
-      return await this.stateModel.updateOne(conditions, data);
+      return this.stateModel.updateOne(conditions, data);
     } catch (e) {
       this.logger.error(e, 'CrudService->updateItem');
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async deleteItem(conditions: { _id: string }) {
+  deleteItem(conditions: { _id: string }) {
     try {
-      return await this.stateModel.updateOne(conditions, { isRemoved: true });
+      return this.stateModel.updateOne(conditions, { isRemoved: true });
     } catch (e) {
       this.logger.error(e, 'CrudService->deleteItem');
       throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
