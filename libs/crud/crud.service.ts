@@ -35,7 +35,7 @@ export abstract class CrudService<CreateType, UpdateType> {
     }
   }
 
-  findOne(conditions: { _id: string }) {
+  findOne(conditions: { _id?: string }) {
     try {
       return this.stateModel.findOne(conditions);
     } catch (e) {

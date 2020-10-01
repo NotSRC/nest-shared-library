@@ -17,8 +17,7 @@ export class UserService extends CrudService<CreateUserDto, any> {
     super(stateModel, logger);
   }
 
-  // @ts-ignore
-  findOne(conditions: { email: string }) {
+  findOne(conditions: { email: string, _id?: string }) {
     return super.findOne(conditions as any);
   }
 }
