@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
 import { User } from './shemas/user.schema';
-import { CrudService } from '../../../crud/crud.service';
-import { DmLoggerService } from '../../../logger/src';
 import { CreateUserDto } from './dto/create-user.dto';
+import { CrudService, DmLoggerService } from '../..';
 
 @Injectable()
 export class UserService extends CrudService<CreateUserDto, any> {
