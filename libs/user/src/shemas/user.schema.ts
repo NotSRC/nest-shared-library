@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
-import { BaseSchema } from '../../../schemas/base.schema';
 import { TransformEnumToArray } from '../../../helpers/transform-enum-to-array';
+import { Document } from 'mongoose';
 
 export enum UserRole {
   Member = 'MEMBER',
@@ -10,7 +10,7 @@ export enum UserRole {
 }
 
 @Schema()
-export class User extends BaseSchema {
+export class User extends Document {
 
   @Prop({
     match: /^\S+@\S+\.\S+$/,
