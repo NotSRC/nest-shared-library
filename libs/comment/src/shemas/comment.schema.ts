@@ -1,10 +1,11 @@
-import { Document, Schema as MongoSchema } from 'mongoose';
+import { Schema as MongoSchema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
+import { BaseSchema } from '../../../schemas/base.schema';
 
 @Schema()
-export class Comment extends Document {
+export class Comment extends BaseSchema {
 
   @Prop({
     required: true,
@@ -21,11 +22,6 @@ export class Comment extends Document {
 
   @Prop()
   ticket: MongoSchema.Types.ObjectId;
-
-  @Prop({
-    default: false,
-  })
-  isRemoved?: boolean;
 }
 
 const CommentSchema = SchemaFactory.createForClass(Comment);

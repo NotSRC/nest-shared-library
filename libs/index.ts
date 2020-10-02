@@ -5,3 +5,5 @@ export * from './user/src/index';
 export * from './filter/filter.service';
 export * from './crud/crud.service';
 export * from './dto/query.dto';
+export * from './schemas/base.schema';
+export * from './helpers/index';
