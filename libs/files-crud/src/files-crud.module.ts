@@ -4,7 +4,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { FilesCrudService } from './files-crud.service';
 
 @Module({
-  controllers: [],
   providers: [FilesCrudService],
   exports: [FilesCrudService],
   imports: [MongooseModule.forFeatureAsync([FileProvider]),]
