@@ -4,7 +4,7 @@ import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';
 import { DmLoggerService } from '../logger/src';
 
-export abstract class CrudService<CreateType, UpdateType> {
+export abstract class CrudService {
   constructor(
     protected stateModel: PaginateModel<Document>,
     protected logger: DmLoggerService,
@@ -44,7 +44,7 @@ export abstract class CrudService<CreateType, UpdateType> {
     }
   }
 
-  createItem(data: CreateType) {
+  createItem(data) {
     try {
       return this.stateModel.create(data);
     } catch (e) {
@@ -53,7 +53,7 @@ export abstract class CrudService<CreateType, UpdateType> {
     }
   }
 
-  updateItem(conditions: { _id: string }, data: UpdateType) {
+  updateItem(conditions: { _id: string }, data) {
     try {
       return this.stateModel.updateOne(conditions, data);
     } catch (e) {
