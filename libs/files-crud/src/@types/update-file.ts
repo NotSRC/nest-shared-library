@@ -1,7 +1,4 @@
 export interface UpdateFile {
-  name: string;
-  size: number;
-  url: string;
-  mimetype: string;
+  url?: string;
   isRemoved?: boolean;
 }

@@ -3,5 +3,4 @@ export interface CreateFile {
   size: number;
   url: string;
   mimetype: string;
-  isRemoved?: boolean;
 }
