@@ -3,10 +3,6 @@ import { validateSync } from 'class-validator';
 import { DataBaseCondition, DataBaseOperator } from './@types/data-base-enums';
 import { FilterInput } from './@types/filter-input';
 
-interface AvailableCustomFilter {
-  [key: string]: string;
-}
-
 export class FilterService {
   filters: FilterInput[] = [];
 
@@ -31,56 +27,35 @@ export class FilterService {
       .filter(v => v);
   }
 
-  public getAvailableFilters(): AvailableCustomFilter {
-    return this.buildQueryFilters();
+  public getAvailableFilters(): any[] {
+    return this.buildNewQuery(this.filters, []);
   }
 
-  public getAvailableFiltersWithChildren() {
-    return this.buildNewQuery(this.filters, {});
-  }
-
-  private buildQueryFilters() {
-    return this.filters.reduce((acc, filter) => {
-      const condition = DataBaseCondition.get(filter.condition);
-      if (acc[filter.field]) {
-        acc[filter.field][condition] = filter.search;
-      } else {
-        acc[filter.field] = {
-          [condition]: filter.search,
-        };
-      }
-      return acc;
-    }, {});
-  }
-
-  private buildNewQuery(filters: FilterInput[], accum: Object) {
+  private buildNewQuery(filters: FilterInput[], accum: Array<any>): any[] {
     return filters.reduce((acc, filter) => {
       const operator = DataBaseOperator.get(filter.operator);
 
-      let childFilters = {};
       if (filter.children?.length) {
-
         if (!acc[operator]) {
           acc[operator] = [];
         }
 
-        childFilters = this.buildNewQuery(filter.children, {});
+        acc.push({ [operator]: this.buildNewQuery(filter.children, []) });
+        return acc;
       } else {
         if (!filter.field || !filter.condition || !filter.search) {
           return acc;
         }
 
         const condition = DataBaseCondition.get(filter.condition);
-        childFilters = {
+
+        acc.push({
           [filter.field]: {
             [condition]: filter.search,
           },
-        };
+        });
+        return acc;
       }
-
-      acc[operator].push(childFilters);
-
-      return acc;
     }, accum);
   }
 }

@@ -1,27 +1,39 @@
-import { Allow, IsOptional } from 'class-validator';
+import { Allow, IsEnum, IsNotEmpty, ValidateIf, ValidateNested } from 'class-validator';
 import { FilterConditions } from './filter-conditions';
 import { FilterOperators } from './filter-operators';
 import { Type } from 'class-transformer';
 
 export class FilterInput {
   @Allow()
-  @IsOptional()
+  @IsNotEmpty()
+  @ValidateIf(o => !o.children?.length)
   field?: string;
 
   @Allow()
-  @IsOptional()
+  @IsNotEmpty()
+  @ValidateIf(o => !o.children?.length)
   search?: string | number | boolean;
 
   @Allow()
-  @IsOptional()
+  @IsNotEmpty()
+  @ValidateIf(o => !o.children?.length)
+  @IsEnum(FilterConditions, { each: true })
   condition?: FilterConditions;
 
   @Allow()
-  @IsOptional()
-  operator: FilterOperators;
+  @IsNotEmpty()
+  @ValidateIf(ValidateIsIsNotFilter)
+  @IsEnum(FilterOperators, { each: true })
+  operator?: FilterOperators = FilterOperators.And;
 
   @Allow()
-  @IsOptional()
+  @IsNotEmpty()
+  @ValidateNested()
+  @ValidateIf(ValidateIsIsNotFilter)
   @Type(() => FilterInput)
   children?: FilterInput[];
+}
+
+function ValidateIsIsNotFilter(f: any) {
+  return f.field && f.search && f.condition;
 }

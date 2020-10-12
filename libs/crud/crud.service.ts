@@ -82,10 +82,9 @@ export abstract class CrudService {
       });
     }
 
-    const availableFilters = filterService.getAvailableFilters();
     return this.generateFilter({
       ...conditions,
-      ...availableFilters,
+      $and: filterService.getAvailableFilters()
     });
   }
 
