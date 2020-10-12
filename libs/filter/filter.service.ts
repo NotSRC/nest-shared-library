@@ -1,6 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
-import { DataBaseCondition } from './@types/data-base-conditions';
+import { DataBaseCondition, DataBaseOperator } from './@types/data-base-enums';
 import { FilterInput } from './@types/filter-input';
 
 interface AvailableCustomFilter {
@@ -16,8 +16,7 @@ export class FilterService {
         FilterInput,
         JSON.parse(filtersJson) as FilterInput[],
       );
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   public validateFilters() {
@@ -36,6 +35,10 @@ export class FilterService {
     return this.buildQueryFilters();
   }
 
+  public getAvailableFiltersWithChildren() {
+    return this.buildNewQuery(this.filters, {});
+  }
+
   private buildQueryFilters() {
     return this.filters.reduce((acc, filter) => {
       const condition = DataBaseCondition.get(filter.condition);
@@ -48,5 +51,35 @@ export class FilterService {
       }
       return acc;
     }, {});
+  }
+
+  private buildNewQuery(filters: FilterInput[], accum: Object) {
+    return filters.reduce((acc, filter) => {
+      const operator = DataBaseOperator.get(filter.operator);
+
+      let childFilters = {};
+      if (filter.children?.length) {
+        childFilters = this.buildNewQuery(filter.children, {});
+      } else {
+        if (!filter.field || !filter.condition || !filter.search) {
+          return acc;
+        }
+
+        const condition = DataBaseCondition.get(filter.condition);
+        childFilters = {
+          [filter.field]: {
+            [condition]: filter.search,
+          },
+        };
+      }
+
+      if (!acc[operator]) {
+        acc[operator] = [];
+      }
+
+      acc[operator].push(childFilters);
+
+      return acc;
+    }, accum);
   }
 }

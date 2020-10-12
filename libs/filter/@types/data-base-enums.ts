@@ -1,4 +1,5 @@
 import { FilterConditions } from './filter-conditions';
+import { FilterOperators } from './filter-operators';
 
 export const DataBaseCondition = new Map([
   [FilterConditions.Equal, '$eq'],
@@ -7,4 +8,9 @@ export const DataBaseCondition = new Map([
   [FilterConditions.LessThen, '$lt'],
   [FilterConditions.LessThenOrEqual, '$lte'],
   [FilterConditions.Include, '$regex'],
+]);
+
+export const DataBaseOperator = new Map([
+  [FilterOperators.And, '$and'],
+  [FilterOperators.Or, '$or'],
 ]);

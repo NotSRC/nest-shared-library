@@ -1,16 +1,27 @@
-import { Allow, IsNotEmpty } from 'class-validator';
+import { Allow, IsOptional } from 'class-validator';
 import { FilterConditions } from './filter-conditions';
+import { FilterOperators } from './filter-operators';
+import { Type } from 'class-transformer';
 
 export class FilterInput {
   @Allow()
-  @IsNotEmpty()
-  field: string;
+  @IsOptional()
+  field?: string;
 
   @Allow()
-  @IsNotEmpty()
-  search: string | number | boolean;
+  @IsOptional()
+  search?: string | number | boolean;
 
   @Allow()
-  @IsNotEmpty()
-  condition: FilterConditions;
+  @IsOptional()
+  condition?: FilterConditions;
+
+  @Allow()
+  @IsOptional()
+  operator: FilterOperators = FilterOperators.And;
+
+  @Allow()
+  @IsOptional()
+  @Type(() => FilterInput)
+  children?: FilterInput[];
 }
