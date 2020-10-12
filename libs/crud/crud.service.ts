@@ -71,25 +71,33 @@ export abstract class CrudService {
     }
   }
 
+  protected generateFilter(params: Object) {
+    return { isRemoved: false, ...params };
+  }
+
   protected buildQuery(conditions: Object, filterJSON: string) {
     const filterService = new FilterService(filterJSON);
 
-    if (filterService.validateFilters().length) {
+    const validations = filterService.validateFilters();
+    if (validations?.length) {
       throw new BadRequestException({
         statusCode: 400,
-        message: ['filter must be a Array of FilterItem type'],
+        message: ['filter must be a valid FilterInput type'],
         error: 'Bad Request',
+        target: validations
       });
     }
 
-    return this.generateFilter({
-      ...conditions,
-      $and: filterService.getAvailableFilters()
-    });
-  }
+    const filterParams = filterService.getAvailableFilters();
+    const params = {
+      ...conditions
+    }
 
-  protected generateFilter(params: Object) {
-    return { isRemoved: false, ...params };
+    if (filterParams?.length) {
+      params['$and'] = filterParams;
+    }
+
+    return this.generateFilter(params);
   }
 }
 

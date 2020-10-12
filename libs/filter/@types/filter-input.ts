@@ -1,9 +1,13 @@
-import { Allow, IsEnum, IsNotEmpty, ValidateIf, ValidateNested } from 'class-validator';
+import { Allow, IsEnum, IsNotEmpty, IsOptional, ValidateIf, ValidateNested } from 'class-validator';
 import { FilterConditions } from './filter-conditions';
 import { FilterOperators } from './filter-operators';
 import { Type } from 'class-transformer';
 
 export class FilterInput {
+
+  /**
+   * Filter fields
+   */
   @Allow()
   @IsNotEmpty()
   @ValidateIf(o => !o.children?.length)
@@ -20,20 +24,18 @@ export class FilterInput {
   @IsEnum(FilterConditions, { each: true })
   condition?: FilterConditions;
 
+  /**
+   * Group fields
+   */
   @Allow()
   @IsNotEmpty()
-  @ValidateIf(ValidateIsIsNotFilter)
+  @ValidateIf(o => o.children?.length)
   @IsEnum(FilterOperators, { each: true })
   operator?: FilterOperators = FilterOperators.And;
 
   @Allow()
-  @IsNotEmpty()
+  @IsOptional()
   @ValidateNested()
-  @ValidateIf(ValidateIsIsNotFilter)
   @Type(() => FilterInput)
   children?: FilterInput[];
-}
-
-function ValidateIsIsNotFilter(f: any) {
-  return f.field && f.search && f.condition;
 }
