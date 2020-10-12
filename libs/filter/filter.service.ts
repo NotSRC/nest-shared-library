@@ -59,6 +59,11 @@ export class FilterService {
 
       let childFilters = {};
       if (filter.children?.length) {
+
+        if (!acc[operator]) {
+          acc[operator] = [];
+        }
+
         childFilters = this.buildNewQuery(filter.children, {});
       } else {
         if (!filter.field || !filter.condition || !filter.search) {
@@ -71,10 +76,6 @@ export class FilterService {
             [condition]: filter.search,
           },
         };
-      }
-
-      if (!acc[operator]) {
-        acc[operator] = [];
       }
 
       acc[operator].push(childFilters);

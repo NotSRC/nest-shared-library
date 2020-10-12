@@ -18,7 +18,7 @@ export class FilterInput {
 
   @Allow()
   @IsOptional()
-  operator: FilterOperators = FilterOperators.And;
+  operator: FilterOperators;
 
   @Allow()
   @IsOptional()
