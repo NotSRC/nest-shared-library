@@ -16,9 +16,9 @@ export class FilterService {
   }
 
   public validateFilters() {
-    return this.filters
-      .map(f =>
-        validateSync(f, {
+    return Object.keys(this.filters)
+      .map(key =>
+        validateSync(this.filters[key], {
           whitelist: true,
           forbidNonWhitelisted: true,
         }),
