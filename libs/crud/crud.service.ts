@@ -1,4 +1,4 @@
-import { Document, FilterQuery, PaginateModel, QueryFindBaseOptions, QueryPopulateOptions } from 'mongoose';
+import { Document, PaginateModel, QueryPopulateOptions } from 'mongoose';
 import { FilterService } from '../filter/filter.service';
 import { BadRequestException } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';

@@ -1,6 +1,6 @@
 {
   "name": "shared-nest-library",
-  "version": "0.4.33",
+  "version": "0.4.34",
   "description": "",
   "author": "",
   "private": true,
@@ -31,7 +31,8 @@
     "filter/**/*",
     "user/**/*",
     "crud/**/*",
-    "dto/**/*"
+    "dto/**/*",
+    "api/**/*"
   ],
   "dependencies": {
     "@nestjs/common": "^7.0.0",
