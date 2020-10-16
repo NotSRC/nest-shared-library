@@ -6,3 +6,4 @@ export * from './helpers/index';
 export * from './user/src/index';
 export * from './files-crud/src/index';
 export * from './notification/src/index';
+export * from './exceptions/index';

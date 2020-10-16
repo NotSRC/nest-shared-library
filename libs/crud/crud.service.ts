@@ -1,14 +1,16 @@
-import { Document, PaginateModel, QueryPopulateOptions } from 'mongoose';
+import { Document, FilterQuery, PaginateModel, QueryFindBaseOptions, QueryPopulateOptions } from 'mongoose';
 import { FilterService } from '../filter/filter.service';
-import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';
 import { DmLoggerService } from '../logger/src';
+import { InternalServerError } from '../exceptions';
 
 export abstract class CrudService {
   constructor(
     protected stateModel: PaginateModel<Document>,
     protected logger: DmLoggerService,
-  ) {}
+  ) {
+  }
 
   findMany(conditions: Object, params: QueryDto, populate: QueryPopulateOptions[] = []) {
     const query = this.buildQuery(conditions, params.filter);
@@ -17,11 +19,11 @@ export abstract class CrudService {
         page: params.page,
         limit: params.limit,
         sort: params.getSort(),
-        populate: populate
+        populate: populate,
       });
     } catch (e) {
       this.logger.error(e, 'CrudService->findMany');
-      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new InternalServerError(e);
     }
   }
 
@@ -31,7 +33,7 @@ export abstract class CrudService {
       return this.stateModel.count(query);
     } catch (e) {
       this.logger.error(e, 'CrudService->getTotalCount');
-      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new InternalServerError(e);
     }
   }
 
@@ -40,7 +42,7 @@ export abstract class CrudService {
       return this.stateModel.findOne(conditions);
     } catch (e) {
       this.logger.error(e, 'CrudService->findOne');
-      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new InternalServerError(e);
     }
   }
 
@@ -49,7 +51,7 @@ export abstract class CrudService {
       return this.stateModel.create(data);
     } catch (e) {
       this.logger.error(e, 'CrudService->createItem');
-      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new InternalServerError(e);
     }
   }
 
@@ -58,7 +60,7 @@ export abstract class CrudService {
       return this.stateModel.updateOne(conditions, data);
     } catch (e) {
       this.logger.error(e, 'CrudService->updateItem');
-      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new InternalServerError(e);
     }
   }
 
@@ -67,7 +69,7 @@ export abstract class CrudService {
       return this.stateModel.updateOne(conditions, { isRemoved: true });
     } catch (e) {
       this.logger.error(e, 'CrudService->deleteItem');
-      throw new HttpException(e, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new InternalServerError(e);
     }
   }
 
@@ -84,14 +86,14 @@ export abstract class CrudService {
         statusCode: 400,
         message: ['filter must be a valid FilterInput type'],
         error: 'Bad Request',
-        target: validations
+        target: validations,
       });
     }
 
     const filterParams = filterService.getAvailableFilters();
     const params = {
-      ...conditions
-    }
+      ...conditions,
+    };
 
     if (filterParams?.length) {
       params['$and'] = filterParams;
