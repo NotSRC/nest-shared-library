@@ -19,7 +19,8 @@ export class FilterInput {
   search?: string | number | boolean;
 
   @Allow()
-  @IsOptional()
+  @IsNotEmpty()
+  @ValidateIf(o => !o.children?.length)
   @IsEnum(FilterConditions, { each: true })
   condition?: FilterConditions;
 
