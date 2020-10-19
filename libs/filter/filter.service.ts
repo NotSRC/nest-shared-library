@@ -43,17 +43,20 @@ export class FilterService {
         acc.push({ [operator]: this.buildNewQuery(filter.children, []) });
         return acc;
       } else {
-        if (!filter.field || !filter.condition || !filter.search) {
+        if (!filter.field || !filter.search) {
           return acc;
         }
 
-        const condition = DataBaseCondition.get(filter.condition);
-
-        acc.push({
-          [filter.field]: {
-            [condition]: filter.search,
-          },
-        });
+        if (filter.condition) {
+          const condition = DataBaseCondition.get(filter.condition);
+          acc.push({
+            [filter.field]: {
+              [condition]: filter.search,
+            },
+          });
+        } else {
+          acc.push({[filter.field]: filter.search})
+        }
         return acc;
       }
     }, accum);
