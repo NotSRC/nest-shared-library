@@ -4,3 +4,8 @@ export interface EmailNotificationModel {
   to: string; // Email to
   templateData: any;
 }
+
+export enum EmailTemplate {
+  UserInvitation = 'd-f5021dd2d91942928c6fc6f89ca98b62',
+  BIMModelGenerated = 'd-7fd3901d5af1471a8414eff07b396ab1',
+}
