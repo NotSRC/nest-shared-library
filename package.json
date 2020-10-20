@@ -1,6 +1,6 @@
 {
   "name": "shared-nest-library",
-  "version": "0.4.39",
+  "version": "0.4.40",
   "description": "",
   "author": "",
   "private": true,
@@ -49,7 +49,7 @@
     "mongoose-timestamp": "^0.6.0",
     "postinstall": "^0.7.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^6.5.4"
+    "rxjs": "6.5.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
