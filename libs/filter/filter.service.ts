@@ -2,6 +2,7 @@ import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
 import { DataBaseCondition, DataBaseOperator } from './@types/data-base-enums';
 import { FilterInput } from './@types/filter-input';
+import { FilterConditions } from './@types/filter-conditions';
 
 export class FilterService {
   filters: FilterInput[] = [];
@@ -48,12 +49,14 @@ export class FilterService {
         }
 
         const condition = DataBaseCondition.get(filter.condition);
+        const filterSearch = {
+          [condition]: filter.search
+        }
+        if (filter.condition == FilterConditions.Include) {
+          filterSearch['$options'] = 'i';
+        }
 
-        acc.push({
-          [filter.field]: {
-            [condition]: filter.search,
-          },
-        });
+        acc.push({ [filter.field]: filterSearch });
         return acc;
       }
     }, accum);
