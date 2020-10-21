@@ -18,14 +18,14 @@ export class FilterService {
 
   public validateFilters() {
     return Object.keys(this.filters)
-      .map(key =>
+      .map((key) =>
         validateSync(this.filters[key], {
           whitelist: true,
           forbidNonWhitelisted: true,
         }),
       )
-      .map(v => (v.length ? v : null))
-      .filter(v => v);
+      .map((v) => (v.length ? v : null))
+      .filter((v) => v);
   }
 
   public getAvailableFilters(): any[] {
@@ -44,14 +44,18 @@ export class FilterService {
         acc.push({ [operator]: this.buildNewQuery(filter.children, []) });
         return acc;
       } else {
-        if (!filter.field || !filter.condition || !filter.search) {
+        if (
+          !filter.field ||
+          !filter.condition ||
+          !this.searchIsAvailable(filter.search)
+        ) {
           return acc;
         }
 
         const condition = DataBaseCondition.get(filter.condition);
         const filterSearch = {
-          [condition]: filter.search
-        }
+          [condition]: filter.search,
+        };
         if (filter.condition == FilterConditions.Include) {
           filterSearch['$options'] = 'i';
         }
@@ -60,5 +64,9 @@ export class FilterService {
         return acc;
       }
     }, accum);
+  }
+
+  private searchIsAvailable(search: any) {
+    return search || search === false || search === 0;
   }
 }
