@@ -13,9 +13,10 @@ export enum UserTeam {
 }
 
 export enum UserRole {
+  Employee = 'EMPLOYEE',
+  Tenant = 'TENANT',
   Member = 'MEMBER',
   Sales = 'SALES',
-  Tenant = 'TENANT',
 }
 
 export enum UserStatus {
