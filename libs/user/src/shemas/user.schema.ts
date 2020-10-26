@@ -13,7 +13,7 @@ export enum UserTeam {
 }
 
 export enum UserRole {
-  FacilityManager = 'FACILITY-MANAGER',
+  Facility = 'FACILITY',
   Worker = 'WORKER',
   Tenant = 'TENANT',
   Member = 'MEMBER',
@@ -104,7 +104,7 @@ export class User extends BaseSchemaModel {
 
   @Prop([
     {
-      enum: TransformEnumToArray(UserStatus),
+      enum: TransformEnumToArray(UserTeam),
     },
   ])
   team: UserTeam[];
