@@ -46,6 +46,7 @@ export class User extends BaseSchemaModel {
 
   @Prop([
     {
+      type: String,
       match: /^\S+@\S+\.\S+$/,
       trim: true,
       lowercase: true,
@@ -59,10 +60,13 @@ export class User extends BaseSchemaModel {
   })
   phone: string;
 
-  @Prop({
-    trim: true,
-    lowercase: true,
-  })
+  @Prop([
+    {
+      type: String,
+      trim: true,
+      lowercase: true,
+    },
+  ])
   additionalPhones: string[];
 
   @Prop({

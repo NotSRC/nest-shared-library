@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { LoggerModule } from '../libs/logger/src';
 import { LogLevel } from '@sentry/types';
-import { UserModule } from '../user/src';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from '../libs/user/src';
 
 @Module({
   imports: [
