@@ -13,7 +13,8 @@ export enum UserTeam {
 }
 
 export enum UserRole {
-  Employee = 'EMPLOYEE',
+  FacilityManager = 'FACILITY-MANAGER',
+  Worker = 'WORKER',
   Tenant = 'TENANT',
   Member = 'MEMBER',
   Sales = 'SALES',
@@ -43,11 +44,26 @@ export class User extends BaseSchemaModel {
   })
   email: string;
 
+  @Prop([
+    {
+      match: /^\S+@\S+\.\S+$/,
+      trim: true,
+      lowercase: true,
+    },
+  ])
+  additionalEmails: string[];
+
   @Prop({
     trim: true,
     lowercase: true,
   })
   phone: string;
+
+  @Prop({
+    trim: true,
+    lowercase: true,
+  })
+  additionalPhones: string[];
 
   @Prop({
     minlength: 6,
