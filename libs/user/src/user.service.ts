@@ -22,6 +22,7 @@ export class UserService extends CrudService<User> {
     populate: QueryPopulateOptions[] = [],
   ) {
     const query = this.buildQuery(conditions, params.filter);
+    delete query.isRemoved;
     try {
       return this.stateModel.paginate(query, {
         page: params.page,
