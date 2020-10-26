@@ -6,6 +6,12 @@ import { TransformEnumToArray } from '../../../helpers/transform-enum-to-array';
 import { Connection, Document } from 'mongoose';
 import { BaseSchemaModel } from '../../../models/base-schema.model';
 
+export enum UserTeam {
+  FacilityManager = 'facility-manager',
+  Plumber = 'plumber',
+  Electrical = 'electrical',
+}
+
 export enum UserRole {
   Member = 'MEMBER',
   Sales = 'SALES',
@@ -78,6 +84,13 @@ export class User extends BaseSchemaModel {
     enum: TransformEnumToArray(UserStatus),
   })
   status: UserStatus;
+
+  @Prop([
+    {
+      enum: TransformEnumToArray(UserStatus),
+    },
+  ])
+  team: UserTeam[];
 
   @Prop({
     default: 'en',
