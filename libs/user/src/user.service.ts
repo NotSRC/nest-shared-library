@@ -7,7 +7,6 @@ import { DmLoggerService } from '../../logger/src/logger.service';
 
 @Injectable()
 export class UserService extends CrudService {
-
   constructor(
     @InjectModel('User')
     protected stateModel: PaginateModel<User>,
@@ -16,7 +15,7 @@ export class UserService extends CrudService {
     super(stateModel, logger);
   }
 
-  findOne(conditions: { email: string, _id?: string }) {
-    return super.findOne(conditions as any);
+  findOneByEmail(conditions: { email: string; _id?: string }) {
+    return super.findOne(conditions);
   }
 }
