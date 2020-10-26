@@ -3,15 +3,17 @@ import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
 import { TransformEnumToArray } from '../../../helpers/transform-enum-to-array';
 import { Document } from 'mongoose';
+import { BaseSchemaModel } from '../../../models/base-schema.model';
 
 export enum UserRole {
   Member = 'MEMBER',
   Sales = 'SALES',
 }
 
-@Schema()
-export class User extends Document {
+export type UserDocument = User & Document;
 
+@Schema()
+export class User extends BaseSchemaModel {
   @Prop({
     match: /^\S+@\S+\.\S+$/,
     required: true,
@@ -37,7 +39,7 @@ export class User extends Document {
 
   @Prop({
     default: UserRole.Member,
-    enum: TransformEnumToArray(UserRole)
+    enum: TransformEnumToArray(UserRole),
   })
   role: UserRole;
 
