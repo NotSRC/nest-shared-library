@@ -1,6 +1,6 @@
 {
   "name": "shared-nest-library",
-  "version": "0.4.48",
+  "version": "0.4.49",
   "description": "",
   "author": "",
   "private": true,
@@ -47,6 +47,7 @@
     "class-validator": "^0.12.2",
     "mongoose": "^5.10.6",
     "mongoose-paginate": "^5.0.3",
+    "mongoose-sequence": "^5.3.0",
     "mongoose-timestamp": "^0.6.0",
     "postinstall": "^0.7.0",
     "reflect-metadata": "^0.1.13",

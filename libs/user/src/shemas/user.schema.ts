@@ -1,19 +1,32 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
+import * as AutoIncrementFactory from 'mongoose-sequence';
 import { TransformEnumToArray } from '../../../helpers/transform-enum-to-array';
-import { Document } from 'mongoose';
+import { Connection, Document } from 'mongoose';
 import { BaseSchemaModel } from '../../../models/base-schema.model';
 
 export enum UserRole {
   Member = 'MEMBER',
   Sales = 'SALES',
+  Tenant = 'TENANT',
+}
+
+export enum UserStatus {
+  Active = 'active',
+  Inactive = 'inactive',
 }
 
 export type UserDocument = User & Document;
 
 @Schema()
 export class User extends BaseSchemaModel {
+  @Prop({
+    default: 1,
+    index: true,
+  })
+  userId: number;
+
   @Prop({
     match: /^\S+@\S+\.\S+$/,
     required: true,
@@ -22,6 +35,12 @@ export class User extends BaseSchemaModel {
     lowercase: true,
   })
   email: string;
+
+  @Prop({
+    trim: true,
+    lowercase: true,
+  })
+  phone: string;
 
   @Prop({
     required: true,
@@ -35,7 +54,19 @@ export class User extends BaseSchemaModel {
     index: true,
     trim: true,
   })
-  name: string;
+  username: string;
+
+  @Prop({
+    maxlength: 64,
+    trim: true,
+  })
+  firstName: string;
+
+  @Prop({
+    maxlength: 64,
+    trim: true,
+  })
+  lastName: string;
 
   @Prop({
     default: UserRole.Member,
@@ -44,16 +75,28 @@ export class User extends BaseSchemaModel {
   role: UserRole;
 
   @Prop({
+    default: UserStatus.Inactive,
+    enum: TransformEnumToArray(UserStatus),
+  })
+  status: UserStatus;
+
+  @Prop({
     default: 'en',
   })
   language: string;
+
+  @Prop()
+  location: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
 
 export const UserProvider = {
   name: 'User',
-  useFactory: () => {
+  inject: ['DatabaseConnection'],
+  useFactory: (connection: Connection) => {
+    const AutoIncrement = AutoIncrementFactory(connection);
+    UserSchema.plugin(AutoIncrement, { inc_field: 'userId' });
     UserSchema.plugin(timestamp);
     UserSchema.plugin(mongoosePaginate);
     return UserSchema;
