@@ -43,7 +43,6 @@ export class User extends BaseSchemaModel {
   phone: string;
 
   @Prop({
-    required: true,
     minlength: 6,
     maxlength: 128,
   })
