@@ -2,6 +2,9 @@ import {
   Document,
   DocumentQuery,
   PaginateModel,
+  PaginateResult,
+  Promise,
+  Query,
   QueryPopulateOptions,
 } from 'mongoose';
 import { FilterService } from '../filter/filter.service';
@@ -20,7 +23,7 @@ export abstract class CrudService<T> {
     conditions: Object,
     params: QueryDto,
     populate: QueryPopulateOptions[] = [],
-  ) {
+  ): Promise<PaginateResult<T>> {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.paginate(query, {
@@ -35,7 +38,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  getTotalCount(conditions: Object, params: QueryDto) {
+  getTotalCount(conditions: Object, params: QueryDto): Query<number> & {} {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.count(query);
@@ -45,7 +48,9 @@ export abstract class CrudService<T> {
     }
   }
 
-  findOne(conditions: { _id?: string }) {
+  findOne(conditions: {
+    _id?: string;
+  }): DocumentQuery<T | null, T & any, {}> & {} {
     try {
       return this.stateModel.findOne(conditions);
     } catch (e) {
@@ -54,7 +59,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  createItem(data) {
+  createItem(data): Promise<T> {
     try {
       return this.stateModel.create(data);
     } catch (e) {
@@ -63,7 +68,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  updateItem(conditions: { _id: string }, data) {
+  updateItem(conditions: { _id: string }, data): Query<any> & {} {
     try {
       return this.stateModel.updateOne(conditions, data);
     } catch (e) {
@@ -72,7 +77,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  deleteItem(conditions: { _id: string }) {
+  deleteItem(conditions: { _id: string }): Query<any> & {} {
     try {
       return this.stateModel.updateOne(conditions, { isRemoved: true });
     } catch (e) {
