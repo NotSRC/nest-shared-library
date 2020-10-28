@@ -9,6 +9,7 @@ export const DataBaseCondition = new Map([
   [FilterConditions.LessThenOrEqual, '$lte'],
   [FilterConditions.Include, '$regex'],
   [FilterConditions.Not, '$not'],
+  [FilterConditions.NotEqual, '$ne'],
 ]);
 
 export const DataBaseOperator = new Map([

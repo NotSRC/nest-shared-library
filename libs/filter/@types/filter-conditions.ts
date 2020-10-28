@@ -6,4 +6,5 @@ export enum FilterConditions {
   LessThenOrEqual = 'LTE',
   Include = 'IN',
   Not = 'NOT',
+  NotEqual = 'NE',
 }
