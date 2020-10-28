@@ -5,4 +5,5 @@ export enum FilterConditions {
   LessThen = 'LT',
   LessThenOrEqual = 'LTE',
   Include = 'IN',
+  Not = 'NOT',
 }

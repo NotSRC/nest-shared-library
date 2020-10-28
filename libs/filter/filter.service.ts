@@ -47,7 +47,7 @@ export class FilterService {
         if (
           !filter.field ||
           !filter.condition ||
-          !this.searchIsAvailable(filter.search)
+          !this.searchIsAvailable(filter.search, filter.isNullable)
         ) {
           return acc;
         }
@@ -66,7 +66,12 @@ export class FilterService {
     }, accum);
   }
 
-  private searchIsAvailable(search: any) {
-    return search || search === false || search === 0;
+  private searchIsAvailable(search: any, isNullable: boolean) {
+    return (
+      search ||
+      search === false ||
+      search === 0 ||
+      (isNullable && search === null)
+    );
   }
 }
