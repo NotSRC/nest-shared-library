@@ -44,8 +44,4 @@ export class FilterInput {
   @ValidateNested()
   @Type(() => FilterInput)
   children?: FilterInput[];
-
-  @Allow()
-  @IsOptional()
-  isNullable: boolean = false;
 }
