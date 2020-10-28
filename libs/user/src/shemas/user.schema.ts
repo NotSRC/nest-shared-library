@@ -111,6 +111,7 @@ export class User extends BaseSchemaModel {
 
   @Prop([
     {
+      type: String,
       enum: TransformEnumToArray(UserTeam),
     },
   ])
