@@ -20,7 +20,7 @@ export class FilterInput {
   field?: string;
 
   @Allow()
-  @IsNotEmpty()
+  @IsOptional()
   @ValidateIf((o) => !o.children?.length)
   search?: string | number | boolean;
 
