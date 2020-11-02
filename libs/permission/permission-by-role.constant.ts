@@ -11,6 +11,7 @@ const getCrudPermission = (key: string) => {
 };
 
 const allPermissions = [
+  Permissions.viewProfile,
   Permissions.sr.setExpectedDate,
   ...getCrudPermission('sr'),
   ...getCrudPermission('wo'),
@@ -21,6 +22,7 @@ const allPermissions = [
 const RootPermissions = ['*'];
 
 const TenantPermissions = [
+  Permissions.viewProfile,
   Permissions.sr.create,
   Permissions.sr.editItem,
   Permissions.sr.viewItem,
