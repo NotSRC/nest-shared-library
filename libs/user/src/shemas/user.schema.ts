@@ -27,6 +27,7 @@ export enum UserRole {
 export enum UserStatus {
   Active = 'active',
   Inactive = 'inactive',
+  Invited = 'invited',
 }
 
 export type UserDocument = User & Document;
