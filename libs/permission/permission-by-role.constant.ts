@@ -5,13 +5,13 @@ const RootPermissions = ['*'];
 
 const TenantPermissions = [Permissions.sr.create];
 
-const WorkerPermissions = [];
+const WorkerPermissions = [Permissions.sr.create];
 
-const FacilityPermissions = [];
+const FacilityPermissions = [Permissions.sr.create];
 
-const MemberPermissions = [];
+const MemberPermissions = [Permissions.sr.create];
 
-const SalesPermissions = [];
+const SalesPermissions = [Permissions.sr.create];
 
 export const PermissionByRoles = {
   [UserRole.Root]: RootPermissions,
