@@ -16,6 +16,7 @@ export enum UserTeam {
 }
 
 export enum UserRole {
+  Root = 'ROOT',
   Facility = 'FACILITY',
   Worker = 'WORKER',
   Tenant = 'TENANT',
@@ -130,6 +131,8 @@ export class User extends BaseSchemaModel {
     type: MongoSchema.Types.ObjectId,
   })
   createdBy: MongoSchema.Types.ObjectId;
+
+  permissions: string[];
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
