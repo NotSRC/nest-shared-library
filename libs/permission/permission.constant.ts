@@ -4,5 +4,6 @@ export const Permissions = {
     viewList: 'viewSrList',
     viewItem: 'viewSrItem',
     editItem: 'editSrItem',
+    setExpectedDate: 'setExpectedDate',
   },
 };

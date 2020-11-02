@@ -3,15 +3,28 @@ import { Permissions } from './permission.constant';
 
 const RootPermissions = ['*'];
 
-const TenantPermissions = [Permissions.sr.create];
+const allRoles = [
+  Permissions.sr.create,
+  Permissions.sr.editItem,
+  Permissions.sr.viewItem,
+  Permissions.sr.viewList,
+  Permissions.sr.setExpectedDate,
+];
 
-const WorkerPermissions = [Permissions.sr.create];
+const TenantPermissions = [
+  Permissions.sr.create,
+  Permissions.sr.editItem,
+  Permissions.sr.viewItem,
+  Permissions.sr.viewList,
+];
 
-const FacilityPermissions = [Permissions.sr.create];
+const WorkerPermissions = [...allRoles];
 
-const MemberPermissions = [Permissions.sr.create];
+const FacilityPermissions = [...allRoles];
 
-const SalesPermissions = [Permissions.sr.create];
+const MemberPermissions = [...allRoles];
+
+const SalesPermissions = [...allRoles];
 
 export const PermissionByRoles = {
   [UserRole.Root]: RootPermissions,
