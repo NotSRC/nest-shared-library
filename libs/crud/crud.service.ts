@@ -70,7 +70,11 @@ export abstract class CrudService<T> {
 
   updateItem(conditions: { _id: string }, data): Query<any> & {} {
     try {
-      return this.stateModel.updateOne(conditions, data);
+      if (this.stateModel.updateOne(conditions, data)) {
+        return this.stateModel.findOne(conditions);
+      } else {
+        return null;
+      }
     } catch (e) {
       this.logger.error(e, 'CrudService->updateItem');
       throw new InternalServerError(e);

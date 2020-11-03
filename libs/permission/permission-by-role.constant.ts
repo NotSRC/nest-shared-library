@@ -13,8 +13,10 @@ const getCrudPermission = (key: string) => {
 const allPermissions = [
   Permissions.viewProfile,
   Permissions.sr.setExpectedDate,
+  Permissions.sr.changeStatus,
   ...getCrudPermission('sr'),
   ...getCrudPermission('wo'),
+  Permissions.wo.changeStatus,
   ...getCrudPermission('employee'),
   ...getCrudPermission('tenant'),
 ];
