@@ -68,9 +68,9 @@ export abstract class CrudService<T> {
     }
   }
 
-  updateItem(conditions: { _id: string }, data): Query<any> & {} {
+  async updateItem(conditions: { _id: string }, data): Promise<T> {
     try {
-      if (this.stateModel.updateOne(conditions, data).exec()) {
+      if (await this.stateModel.updateOne(conditions, data).exec()) {
         return this.stateModel.findOne(conditions);
       } else {
         return null;
