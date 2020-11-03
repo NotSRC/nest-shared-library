@@ -70,7 +70,7 @@ export abstract class CrudService<T> {
 
   updateItem(conditions: { _id: string }, data): Query<any> & {} {
     try {
-      if (this.stateModel.updateOne(conditions, data)) {
+      if (this.stateModel.updateOne(conditions, data).exec()) {
         return this.stateModel.findOne(conditions);
       } else {
         return null;
