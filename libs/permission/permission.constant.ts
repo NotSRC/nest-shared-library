@@ -19,6 +19,7 @@ export const Permissions = {
     showField: {
       creationDate: 'canViewCreationDate',
       expectedDate: 'canViewExpectedData',
+      description: 'canViewDescription',
       createdBy: 'canViewCreatedBy',
       reporter: 'canViewReporter',
       location: 'canViewLocation',
