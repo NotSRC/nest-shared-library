@@ -32,7 +32,6 @@ const TenantPermissions = [
   Permissions.sr.editField.title,
   Permissions.sr.editField.urgency,
   Permissions.sr.editField.location,
-  Permissions.sr.editField.expectedDate,
   Permissions.sr.editField.description,
 
   Permissions.sr.showField.title,
@@ -40,6 +39,7 @@ const TenantPermissions = [
   Permissions.sr.showField.location,
   Permissions.sr.showField.description,
   Permissions.sr.showField.creationDate,
+  Permissions.sr.showField.expectedDate,
 
   Permissions.sr.comments.view,
 ];

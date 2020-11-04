@@ -24,6 +24,7 @@ export const Permissions = {
       reporter: 'canViewReporter',
       location: 'canViewLocation',
       urgency: 'canViewUrgency',
+      status: 'canViewStatus',
       title: 'canViewTitle',
     },
     editField: {
