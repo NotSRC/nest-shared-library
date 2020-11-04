@@ -32,12 +32,14 @@ const TenantPermissions = [
   Permissions.sr.editField.title,
   Permissions.sr.editField.urgency,
   Permissions.sr.editField.location,
+  Permissions.sr.editField.expectedDate,
   Permissions.sr.editField.description,
 
   Permissions.sr.showField.title,
   Permissions.sr.showField.urgency,
   Permissions.sr.showField.location,
   Permissions.sr.showField.description,
+  Permissions.sr.showField.creationDate,
 
   Permissions.sr.comments.view,
 ];
