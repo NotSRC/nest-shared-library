@@ -1,5 +1,6 @@
 export const Permissions = {
   viewProfile: 'viewProfile',
+  changePassword: 'changePassword',
   sr: {
     create: 'createSr',
     viewList: 'viewSrList',

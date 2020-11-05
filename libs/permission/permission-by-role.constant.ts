@@ -19,6 +19,7 @@ const RootPermissions = ['*'];
 
 const TenantPermissions = [
   Permissions.viewProfile,
+  Permissions.changePassword,
   Permissions.sr.create,
   Permissions.sr.editItem,
   Permissions.sr.viewItem,
