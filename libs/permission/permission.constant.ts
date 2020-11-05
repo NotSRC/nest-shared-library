@@ -13,6 +13,7 @@ export const Permissions = {
     createField: {
       expectedDate: 'canSetExpectedData',
       description: 'canSetDescription',
+      attachments: 'canSetAttachments',
       location: 'canSetLocation',
       urgency: 'canSetUrgency',
       title: 'canSetTitle',
@@ -20,6 +21,7 @@ export const Permissions = {
     showField: {
       creationDate: 'canViewCreationDate',
       expectedDate: 'canViewExpectedData',
+      attachments: 'canViewAttachments',
       description: 'canViewDescription',
       createdBy: 'canViewCreatedBy',
       reporter: 'canViewReporter',
