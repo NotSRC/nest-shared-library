@@ -10,7 +10,7 @@ export const Permissions = {
       view: 'canViewSrComments',
     },
     createField: {
-      expectedDate: 'canViewExpectedData',
+      expectedDate: 'canSetExpectedData',
       description: 'canSetDescription',
       location: 'canSetLocation',
       urgency: 'canSetUrgency',
