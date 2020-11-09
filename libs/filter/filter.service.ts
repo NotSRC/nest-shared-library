@@ -12,7 +12,7 @@ export class FilterService {
       this.filters = plainToClass(
         FilterInput,
         JSON.parse(filtersJson) as FilterInput[],
-      );
+      ) || [];
     } catch (e) {}
   }
 

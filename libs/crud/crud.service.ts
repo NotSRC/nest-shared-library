@@ -95,6 +95,19 @@ export abstract class CrudService<T> {
   }
 
   protected buildQuery(conditions: Object, filterJSON: string) {
+    const filterParams = this.getAvailableFilters(filterJSON);
+    const params = {
+      ...conditions,
+    };
+
+    if (filterParams?.length) {
+      params['$and'] = filterParams;
+    }
+
+    return this.generateFilter(params);
+  }
+
+  protected getAvailableFilters(filterJSON: string) {
     const filterService = new FilterService(filterJSON);
 
     const validations = filterService.validateFilters();
@@ -107,15 +120,6 @@ export abstract class CrudService<T> {
       });
     }
 
-    const filterParams = filterService.getAvailableFilters();
-    const params = {
-      ...conditions,
-    };
-
-    if (filterParams?.length) {
-      params['$and'] = filterParams;
-    }
-
-    return this.generateFilter(params);
+    return filterService.getAvailableFilters();
   }
 }
