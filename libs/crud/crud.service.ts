@@ -23,6 +23,7 @@ export abstract class CrudService<T> {
     conditions: Object,
     params: QueryDto,
     populate: QueryPopulateOptions[] = [],
+    selectKeys: string,
   ): Promise<PaginateResult<T>> {
     const query = this.buildQuery(conditions, params.filter);
     try {
@@ -31,6 +32,7 @@ export abstract class CrudService<T> {
         limit: params.limit,
         sort: params.getSort(),
         populate: populate,
+        select: selectKeys,
       });
     } catch (e) {
       this.logger.error(e, 'CrudService->findMany');
