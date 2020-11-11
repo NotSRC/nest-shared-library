@@ -1,5 +1,4 @@
 import {
-  Document,
   DocumentQuery,
   PaginateModel,
   PaginateResult,
@@ -23,7 +22,7 @@ export abstract class CrudService<T> {
     conditions: Object,
     params: QueryDto,
     populate: QueryPopulateOptions[] = [],
-    selectKeys: string,
+    selectKeys?: string,
   ): Promise<PaginateResult<T>> {
     const query = this.buildQuery(conditions, params.filter);
     try {
