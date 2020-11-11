@@ -20,6 +20,7 @@ export class UserService extends CrudService<User> {
     conditions: Object,
     params: QueryDto,
     populate: QueryPopulateOptions[] = [],
+    select: string = `-password`,
   ) {
     const query = this.buildQuery(conditions, params.filter);
     delete query.isRemoved;
@@ -29,7 +30,7 @@ export class UserService extends CrudService<User> {
         limit: params.limit,
         sort: params.getSort(),
         populate: populate,
-        select: '-password',
+        select: select,
       });
     } catch (e) {
       this.logger.error(e, 'CrudService->findMany');
