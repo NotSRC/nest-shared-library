@@ -35,7 +35,7 @@ export abstract class CrudService<T> {
       });
     } catch (e) {
       this.logger.error(e, 'CrudService->findMany');
-      throw new InternalServerError(e);
+      return e;
     }
   }
 
@@ -45,7 +45,7 @@ export abstract class CrudService<T> {
       return this.stateModel.count(query);
     } catch (e) {
       this.logger.error(e, 'CrudService->getTotalCount');
-      throw new InternalServerError(e);
+      return e;
     }
   }
 
@@ -56,7 +56,7 @@ export abstract class CrudService<T> {
       return this.stateModel.findOne(conditions);
     } catch (e) {
       this.logger.error(e, 'CrudService->findOne');
-      throw new InternalServerError(e);
+      return e;
     }
   }
 
@@ -65,7 +65,7 @@ export abstract class CrudService<T> {
       return this.stateModel.create(data);
     } catch (e) {
       this.logger.error(e, 'CrudService->createItem');
-      throw new InternalServerError(e);
+      return e;
     }
   }
 
@@ -78,7 +78,7 @@ export abstract class CrudService<T> {
       }
     } catch (e) {
       this.logger.error(e, 'CrudService->updateItem');
-      throw new InternalServerError(e);
+      return e;
     }
   }
 
@@ -87,7 +87,7 @@ export abstract class CrudService<T> {
       return this.stateModel.updateOne(conditions, { isRemoved: true });
     } catch (e) {
       this.logger.error(e, 'CrudService->deleteItem');
-      throw new InternalServerError(e);
+      return e;
     }
   }
 
