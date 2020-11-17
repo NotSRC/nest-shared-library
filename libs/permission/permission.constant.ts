@@ -58,4 +58,10 @@ export const Permissions = {
     viewItem: 'viewTenantItem',
     editItem: 'editTenantItem',
   },
+  asset: {
+    create: 'createAsset',
+    viewList: 'viewAssetList',
+    viewItem: 'viewAssetItem',
+    editItem: 'editAssetItem',
+  },
 };
