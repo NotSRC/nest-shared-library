@@ -64,4 +64,15 @@ export const Permissions = {
     viewItem: 'viewAssetItem',
     editItem: 'editAssetItem',
   },
+  projects: {
+    create: 'createProject',
+    viewList: 'viewProjectsList',
+    viewItem: 'viewProject',
+    editItem: 'editProject',
+  },
+  property: {
+    create: 'createProperty',
+    viewItem: 'viewProperty',
+    editItem: 'editProperty',
+  },
 };
