@@ -4,7 +4,7 @@ import { PaginateModel, QueryPopulateOptions } from 'mongoose';
 import { User, UserDocument } from './shemas/user.schema';
 import { CrudService } from '../../crud/crud.service';
 import { DmLoggerService } from '../../logger/src/logger.service';
-import { InternalServerError, QueryDto } from '../..';
+import { QueryDto } from '../..';
 
 @Injectable()
 export class UserService extends CrudService<User> {
@@ -34,7 +34,7 @@ export class UserService extends CrudService<User> {
       });
     } catch (e) {
       this.logger.error(e, 'CrudService->findMany');
-      throw new InternalServerError(e);
+      throw e;
     }
   }
 

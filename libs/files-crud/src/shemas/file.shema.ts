@@ -4,10 +4,10 @@ import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
 import { BaseSchemaModel } from '../../../models/base-schema.model';
 
-export type FileDocument = FileModel & Document;
+export type StaticFileDocument = StaticFileModel & Document;
 
 @Schema()
-export class FileModel extends BaseSchemaModel {
+export class StaticFileModel extends BaseSchemaModel {
   @Prop()
   name: string;
 
@@ -26,13 +26,13 @@ export class FileModel extends BaseSchemaModel {
   isRemoved?: boolean;
 }
 
-const FileSchema = SchemaFactory.createForClass(FileModel);
+const StaticFileSchema = SchemaFactory.createForClass(StaticFileModel);
 
 export const FileProvider = {
-  name: 'File',
+  name: 'StaticFile',
   useFactory: () => {
-    FileSchema.plugin(timestamp);
-    FileSchema.plugin(mongoosePaginate);
-    return FileSchema;
+    StaticFileSchema.plugin(timestamp);
+    StaticFileSchema.plugin(mongoosePaginate);
+    return StaticFileSchema;
   },
 };
