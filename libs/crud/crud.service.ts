@@ -1,16 +1,8 @@
-import {
-  DocumentQuery,
-  PaginateModel,
-  PaginateResult,
-  Promise,
-  Query,
-  QueryPopulateOptions,
-} from 'mongoose';
+import { PaginateModel, QueryPopulateOptions } from 'mongoose';
 import { FilterService } from '../filter/filter.service';
 import { BadRequestException } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';
 import { DmLoggerService } from '../logger/src';
-import { InternalServerError } from '../exceptions';
 
 export abstract class CrudService<T> {
   constructor(
@@ -23,7 +15,7 @@ export abstract class CrudService<T> {
     params: QueryDto,
     populate: QueryPopulateOptions[] = [],
     selectKeys?: string,
-  ): Promise<PaginateResult<T>> {
+  ) {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.paginate(query, {
@@ -39,7 +31,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  getTotalCount(conditions: Object, params: QueryDto): Query<number> & {} {
+  getTotalCount(conditions: Object, params: QueryDto) {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.count(query);
@@ -49,9 +41,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  findOne(conditions: {
-    _id?: string;
-  }): DocumentQuery<T | null, T & any, {}> & {} {
+  findOne(conditions: { _id?: string }) {
     try {
       return this.stateModel.findOne(conditions);
     } catch (e) {
@@ -60,7 +50,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  createItem(data): Promise<T> {
+  createItem(data) {
     try {
       return this.stateModel.create(data);
     } catch (e) {
@@ -69,7 +59,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  async updateItem(conditions: { _id: string }, data): Promise<T> {
+  async updateItem(conditions: { _id: string }, data) {
     try {
       if (await this.stateModel.updateOne(conditions, data).exec()) {
         return this.stateModel.findOne(conditions);
@@ -82,7 +72,7 @@ export abstract class CrudService<T> {
     }
   }
 
-  deleteItem(conditions: { _id: string }): Query<any> & {} {
+  deleteItem(conditions: { _id: string }) {
     try {
       return this.stateModel.updateOne(conditions, { isRemoved: true });
     } catch (e) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, QueryPopulateOptions } from 'mongoose';
-import { User, UserDocument } from './shemas/user.schema';
+import { User } from './shemas/user.schema';
 import { CrudService } from '../../crud/crud.service';
 import { DmLoggerService } from '../../logger/src/logger.service';
 import { QueryDto } from '../..';
@@ -10,7 +10,7 @@ import { QueryDto } from '../..';
 export class UserService extends CrudService<User> {
   constructor(
     @InjectModel('User')
-    protected stateModel: PaginateModel<UserDocument>,
+    protected stateModel: PaginateModel<User>,
     protected logger: DmLoggerService,
   ) {
     super(stateModel, logger);

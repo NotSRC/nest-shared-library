@@ -4,8 +4,6 @@ import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
 import { BaseSchemaModel } from '../../../models/base-schema.model';
 
-export type StaticFileDocument = StaticFileModel & Document;
-
 @Schema()
 export class StaticFileModel extends BaseSchemaModel {
   @Prop()
@@ -23,7 +21,7 @@ export class StaticFileModel extends BaseSchemaModel {
   @Prop({
     default: false,
   })
-  isRemoved?: boolean;
+  isRemoved: boolean;
 }
 
 const StaticFileSchema = SchemaFactory.createForClass(StaticFileModel);
