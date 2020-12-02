@@ -3,7 +3,7 @@ import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
 import * as AutoIncrementFactory from 'mongoose-sequence';
 import { TransformEnumToArray } from '../../../helpers/transform-enum-to-array';
-import { Connection, Schema as MongoSchema } from 'mongoose';
+import { Connection, Document, Schema as MongoSchema } from 'mongoose';
 import { BaseSchemaModel } from '../../../models/base-schema.model';
 
 export enum UserTeam {
@@ -31,7 +31,7 @@ export enum UserStatus {
 }
 
 @Schema()
-export class User extends BaseSchemaModel {
+export class User extends Document {
   @Prop({
     default: 1,
     index: true,
@@ -132,6 +132,8 @@ export class User extends BaseSchemaModel {
   createdBy: MongoSchema.Types.ObjectId;
 
   permissions: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
