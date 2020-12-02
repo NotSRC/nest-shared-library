@@ -4,7 +4,6 @@ import * as mongoosePaginate from 'mongoose-paginate';
 import * as AutoIncrementFactory from 'mongoose-sequence';
 import { TransformEnumToArray } from '../../../helpers/transform-enum-to-array';
 import { Connection, Document, Schema as MongoSchema } from 'mongoose';
-import { BaseSchemaModel } from '../../../models/base-schema.model';
 
 export enum UserTeam {
   Electrical = 'electrical',
