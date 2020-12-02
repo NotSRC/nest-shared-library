@@ -140,7 +140,7 @@ const UserSchema = SchemaFactory.createForClass(User);
 export const UserProvider = {
   name: 'User',
   inject: ['DatabaseConnection'],
-  useFactory: (connection: Connection) => {
+  useFactory: (connection: Connection): any => {
     const AutoIncrement = AutoIncrementFactory(connection);
     UserSchema.plugin(AutoIncrement, { inc_field: 'userId' });
     UserSchema.plugin(timestamp);

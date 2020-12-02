@@ -30,7 +30,7 @@ const StaticFileSchema = SchemaFactory.createForClass(StaticFileModel);
 
 export const FileProvider = {
   name: 'StaticFile',
-  useFactory: () => {
+  useFactory: (): any => {
     StaticFileSchema.plugin(timestamp);
     StaticFileSchema.plugin(mongoosePaginate);
     return StaticFileSchema;

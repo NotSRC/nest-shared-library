@@ -10,10 +10,10 @@ import { QueryDto } from '../..';
 export class UserService extends CrudService {
   constructor(
     @InjectModel('User')
-    protected userState: PaginateModel<User>,
+    protected stateModel: PaginateModel<User>,
     protected logger: DmLoggerService,
   ) {
-    super(userState, logger);
+    super(stateModel, logger);
   }
 
   findMany(

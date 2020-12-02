@@ -9,9 +9,9 @@ import { DmLoggerService } from '../../logger/src/logger.service';
 export class FilesCrudService extends CrudService {
   constructor(
     @InjectModel('StaticFile')
-    protected filesState: PaginateModel<StaticFileModel>,
+    protected stateModel: PaginateModel<StaticFileModel>,
     protected logger: DmLoggerService,
   ) {
-    super(filesState, logger);
+    super(stateModel, logger);
   }
 }
