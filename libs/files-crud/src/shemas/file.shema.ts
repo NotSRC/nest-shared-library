@@ -2,9 +2,10 @@ import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
+import { BaseSchemaModel } from '../../../models/base-schema.model';
 
 @Schema()
-export class StaticFileModel extends Document {
+export class StaticFileModel extends BaseSchemaModel {
   @Prop()
   name: string;
 
@@ -21,16 +22,13 @@ export class StaticFileModel extends Document {
     default: false,
   })
   isRemoved: boolean;
-
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 const StaticFileSchema = SchemaFactory.createForClass(StaticFileModel);
 
 export const FileProvider = {
   name: 'StaticFile',
-  useFactory: (): any => {
+  useFactory: () => {
     StaticFileSchema.plugin(timestamp);
     StaticFileSchema.plugin(mongoosePaginate);
     return StaticFileSchema;

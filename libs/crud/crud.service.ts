@@ -4,9 +4,9 @@ import { BadRequestException } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';
 import { DmLoggerService } from '../logger/src';
 
-export abstract class CrudService {
+export abstract class CrudService<T extends Document> {
   constructor(
-    protected stateModel: PaginateModel<Document>,
+    protected stateModel: PaginateModel<T & any>,
     protected logger: DmLoggerService,
   ) {}
 

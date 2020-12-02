@@ -3,7 +3,8 @@ import * as timestamp from 'mongoose-timestamp';
 import * as mongoosePaginate from 'mongoose-paginate';
 import * as AutoIncrementFactory from 'mongoose-sequence';
 import { TransformEnumToArray } from '../../../helpers/transform-enum-to-array';
-import { Connection, Document, Schema as MongoSchema } from 'mongoose';
+import { Connection, Schema as MongoSchema } from 'mongoose';
+import { BaseSchemaModel } from '../../../models/base-schema.model';
 
 export enum UserTeam {
   Electrical = 'electrical',
@@ -30,7 +31,7 @@ export enum UserStatus {
 }
 
 @Schema()
-export class User extends Document {
+export class User extends BaseSchemaModel {
   @Prop({
     default: 1,
     index: true,
@@ -131,8 +132,6 @@ export class User extends Document {
   createdBy: MongoSchema.Types.ObjectId;
 
   permissions: string[];
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
@@ -140,7 +139,7 @@ const UserSchema = SchemaFactory.createForClass(User);
 export const UserProvider = {
   name: 'User',
   inject: ['DatabaseConnection'],
-  useFactory: (connection: Connection): any => {
+  useFactory: (connection: Connection) => {
     const AutoIncrement = AutoIncrementFactory(connection);
     UserSchema.plugin(AutoIncrement, { inc_field: 'userId' });
     UserSchema.plugin(timestamp);
