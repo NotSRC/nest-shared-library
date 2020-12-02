@@ -7,7 +7,7 @@ import { DmLoggerService } from '../../logger/src/logger.service';
 import { QueryDto } from '../..';
 
 @Injectable()
-export class UserService extends CrudService<User> {
+export class UserService extends CrudService {
   constructor(
     @InjectModel('User')
     protected stateModel: PaginateModel<User>,

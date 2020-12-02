@@ -6,7 +6,7 @@ import { CrudService } from '../../crud/crud.service';
 import { DmLoggerService } from '../../logger/src/logger.service';
 
 @Injectable()
-export class FilesCrudService extends CrudService<StaticFileModel> {
+export class FilesCrudService extends CrudService {
   constructor(
     @InjectModel('StaticFile')
     protected stateModel: PaginateModel<StaticFileModel>,

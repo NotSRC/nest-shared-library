@@ -1,12 +1,12 @@
-import { PaginateModel, QueryPopulateOptions } from 'mongoose';
+import { PaginateModel, QueryPopulateOptions, Document } from 'mongoose';
 import { FilterService } from '../filter/filter.service';
 import { BadRequestException } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';
 import { DmLoggerService } from '../logger/src';
 
-export abstract class CrudService<T> {
+export abstract class CrudService {
   constructor(
-    protected stateModel: PaginateModel<T & any>,
+    protected stateModel: PaginateModel<Document>,
     protected logger: DmLoggerService,
   ) {}
 
