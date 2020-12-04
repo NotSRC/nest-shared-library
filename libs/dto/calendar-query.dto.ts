@@ -3,11 +3,11 @@ import { Allow, IsJSON, IsOptional } from 'class-validator';
 export class CalendarQueryDto {
   @Allow()
   @IsOptional()
-  start: string;
+  start: Date;
 
   @Allow()
   @IsOptional()
-  end: string;
+  end: Date;
 
   @Allow()
   @IsJSON()
