@@ -1,21 +1,33 @@
-import { Document, PaginateModel, QueryPopulateOptions } from 'mongoose';
+import {
+  DocumentQuery,
+  FilterQuery,
+  PaginateModel,
+  PaginateResult,
+  Promise,
+  Query,
+  Document,
+  QueryPopulateOptions,
+  CreateQuery,
+  UpdateQuery,
+} from 'mongoose';
 import { FilterService } from '../filter/filter.service';
 import { BadRequestException } from '@nestjs/common';
 import { QueryDto } from '../dto/query.dto';
 import { DmLoggerService } from '../logger/src';
+import { BaseSchemaModel } from '../models/base-schema.model';
 
-export abstract class CrudService<T extends Document> {
+export abstract class CrudService<T extends BaseSchemaModel> {
   constructor(
     protected stateModel: PaginateModel<T & any>,
     protected logger: DmLoggerService,
   ) {}
 
   findMany(
-    conditions: Object,
+    conditions: FilterQuery<T>,
     params: QueryDto,
     populate: QueryPopulateOptions[] = [],
     selectKeys?: string,
-  ) {
+  ): Promise<PaginateResult<T>> {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.paginate(query, {
@@ -31,7 +43,7 @@ export abstract class CrudService<T extends Document> {
     }
   }
 
-  getTotalCount(conditions: Object, params: QueryDto) {
+  getTotalCount(conditions: FilterQuery<T>, params: QueryDto): Query<number> {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.count(query);
@@ -41,7 +53,9 @@ export abstract class CrudService<T extends Document> {
     }
   }
 
-  findOne(conditions: { _id?: string }) {
+  findOne(
+    conditions: FilterQuery<T>,
+  ): DocumentQuery<T | null, T & Document, {}> & {} {
     try {
       return this.stateModel.findOne(conditions);
     } catch (e) {
@@ -50,16 +64,16 @@ export abstract class CrudService<T extends Document> {
     }
   }
 
-  createItem(data) {
+  createItem(data: Partial<CreateQuery<T>>): Promise<T> {
     try {
-      return this.stateModel.create(data);
+      return this.stateModel.create(data as CreateQuery<T>);
     } catch (e) {
       this.logger.error(e, 'CrudService->createItem');
       throw e;
     }
   }
 
-  async updateItem(conditions: { _id: string }, data) {
+  async updateItem(conditions: FilterQuery<T>, data: Partial<UpdateQuery<T>>) {
     try {
       if (await this.stateModel.updateOne(conditions, data).exec()) {
         return this.stateModel.findOne(conditions);
@@ -72,20 +86,21 @@ export abstract class CrudService<T extends Document> {
     }
   }
 
-  deleteItem(conditions: { _id: string }) {
+  async deleteItem(conditions: FilterQuery<T>) {
     try {
-      return this.stateModel.updateOne(conditions, { isRemoved: true });
+      // @ts-ignore
+      return this.updateItem(conditions, { isRemoved: true });
     } catch (e) {
       this.logger.error(e, 'CrudService->deleteItem');
       throw e;
     }
   }
 
-  protected generateFilter(params: Object) {
+  protected generateFilter(params: FilterQuery<T>) {
     return { isRemoved: false, ...params };
   }
 
-  protected buildQuery(conditions: Object, filterJSON: string) {
+  protected buildQuery(conditions: FilterQuery<T>, filterJSON: string) {
     const filterParams = this.getAvailableFilters(filterJSON);
     const params = {
       ...conditions,

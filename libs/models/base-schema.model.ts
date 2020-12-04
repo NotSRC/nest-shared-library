@@ -1,7 +1,12 @@
-import { Document, Schema as MongoSchema } from 'mongoose';
+import { Schema as MongoSchema } from 'mongoose';
+import { Prop, Schema } from '@nestjs/mongoose';
 
-export class BaseSchemaModel extends Document {
+@Schema()
+export class BaseSchemaModel {
   _id: MongoSchema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
+
+  @Prop({ default: false })
+  isRemoved: boolean;
 }

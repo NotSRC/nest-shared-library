@@ -17,13 +17,9 @@ export class StaticFileModel extends BaseSchemaModel {
 
   @Prop()
   mimetype: string;
-
-  @Prop({
-    default: false,
-  })
-  isRemoved: boolean;
 }
 
+export type StaticFileDocument = StaticFileModel & Document;
 const StaticFileSchema = SchemaFactory.createForClass(StaticFileModel);
 
 export const FileProvider = {

@@ -3,11 +3,11 @@ import { AppController } from './app.controller';
 import { LoggerModule } from '../libs/logger/src';
 import { LogLevel } from '@sentry/types';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from '../libs/user/src';
+import { FilesCrudModule } from '../libs';
 
 @Module({
   imports: [
-    UserModule,
+    FilesCrudModule,
     LoggerModule.register({
       dsn:
         'https://53b055ffb9de431f8b3869f701f3a7e6@o449858.ingest.sentry.io/5433558',
