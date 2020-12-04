@@ -46,7 +46,7 @@ export abstract class CrudService<T extends BaseSchemaModel> {
   getTotalCount(conditions: FilterQuery<T>, params: QueryDto): Query<number> {
     const query = this.buildQuery(conditions, params.filter);
     try {
-      return this.stateModel.count(query);
+      return this.stateModel.countDocuments(query);
     } catch (e) {
       this.logger.error(e, 'CrudService->getTotalCount');
       throw e;
