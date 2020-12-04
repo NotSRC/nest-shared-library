@@ -64,7 +64,7 @@ export abstract class CrudService<T extends BaseSchemaModel> {
     }
   }
 
-  createItem(data: Partial<CreateQuery<T>>): Promise<T> {
+  createItem(data: Partial<CreateQuery<T>>): Promise<T & Document> {
     try {
       return this.stateModel.create(data as CreateQuery<T>);
     } catch (e) {
