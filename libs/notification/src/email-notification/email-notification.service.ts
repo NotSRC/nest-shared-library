@@ -8,7 +8,6 @@ export class EmailNotificationService {
   }
 
   async send(data: EmailNotificationModel) {
-    console.log(data);
     this.client.emit('send-email', data);
   }
 }
