@@ -9,7 +9,8 @@ import {
 } from '@nestjs/common';
 import { DmLoggerInterceptor, DmLoggerService } from '../libs/logger/src';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FilesCrudService } from '../libs';
+import { FilesCrudService, User } from '../libs';
+import { ApiCreatedResponse } from '@nestjs/swagger';
 
 @UseInterceptors(DmLoggerInterceptor)
 @Controller()
@@ -31,6 +32,16 @@ export class AppController {
       size: file.size,
       mimetype: file.mimetype,
     });
+  }
+
+  @ApiCreatedResponse({
+    description: 'Method create user and return authorization token',
+    type: User,
+  })
+  @Post('user')
+  @UseInterceptors(FileInterceptor('file'))
+  async users(@UploadedFile() file) {
+    return [];
   }
 
   constructor(

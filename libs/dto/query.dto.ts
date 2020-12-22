@@ -8,14 +8,21 @@ export enum SortDirection {
 }
 
 export class QueryDto {
-  @ApiProperty()
+  @ApiProperty({
+    minimum: 1,
+    default: 1,
+  })
   @Allow()
   @Min(1)
   @IsOptional()
   @Transform((value) => parseInt(value || 1, 10))
   page?: number = 1;
 
-  @ApiProperty()
+  @ApiProperty({
+    minimum: 1,
+    maximum: 99,
+    default: 25,
+  })
   @Allow()
   @Max(99)
   @Min(1)
@@ -33,7 +40,9 @@ export class QueryDto {
   @Allow()
   private sortField: string = 'createdAt';
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: SortDirection,
+  })
   @Allow()
   @IsEnum(SortDirection, { each: true })
   private sortDirection: SortDirection = SortDirection.Asc;

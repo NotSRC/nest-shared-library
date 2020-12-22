@@ -50,7 +50,7 @@ export class User extends BaseSchemaModel {
   })
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: [String] })
   @Prop([
     {
       type: String,
@@ -68,7 +68,7 @@ export class User extends BaseSchemaModel {
   })
   phone: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: [String] })
   @Prop([
     {
       type: String,
@@ -106,21 +106,27 @@ export class User extends BaseSchemaModel {
   })
   lastName: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: TransformEnumToArray(UserRole),
+  })
   @Prop({
     default: UserRole.Member,
     enum: TransformEnumToArray(UserRole),
   })
   role: UserRole;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: TransformEnumToArray(UserStatus),
+  })
   @Prop({
     default: UserStatus.Inactive,
     enum: TransformEnumToArray(UserStatus),
   })
   status: UserStatus;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: TransformEnumToArray(UserTeam),
+  })
   @Prop([
     {
       type: String,
