@@ -5,6 +5,7 @@ import * as AutoIncrementFactory from 'mongoose-sequence';
 import { TransformEnumToArray } from '../../../helpers/transform-enum-to-array';
 import { Connection, Schema as MongoSchema, Document } from 'mongoose';
 import { BaseSchemaModel } from '../../../models/base-schema.model';
+import { ApiProperty } from '@nestjs/swagger';
 
 export enum UserTeam {
   Electrical = 'electrical',
@@ -32,12 +33,14 @@ export enum UserStatus {
 
 @Schema()
 export class User extends BaseSchemaModel {
+  @ApiProperty()
   @Prop({
     default: 1,
     index: true,
   })
   userId: number;
 
+  @ApiProperty()
   @Prop({
     match: /^\S+@\S+\.\S+$/,
     required: true,
@@ -47,6 +50,7 @@ export class User extends BaseSchemaModel {
   })
   email: string;
 
+  @ApiProperty()
   @Prop([
     {
       type: String,
@@ -57,12 +61,14 @@ export class User extends BaseSchemaModel {
   ])
   additionalEmails: string[];
 
+  @ApiProperty()
   @Prop({
     trim: true,
     lowercase: true,
   })
   phone: string;
 
+  @ApiProperty()
   @Prop([
     {
       type: String,
@@ -78,6 +84,7 @@ export class User extends BaseSchemaModel {
   })
   password: string;
 
+  @ApiProperty()
   @Prop({
     maxlength: 128,
     index: true,
@@ -85,30 +92,35 @@ export class User extends BaseSchemaModel {
   })
   username: string;
 
+  @ApiProperty()
   @Prop({
     maxlength: 64,
     trim: true,
   })
   firstName: string;
 
+  @ApiProperty()
   @Prop({
     maxlength: 64,
     trim: true,
   })
   lastName: string;
 
+  @ApiProperty()
   @Prop({
     default: UserRole.Member,
     enum: TransformEnumToArray(UserRole),
   })
   role: UserRole;
 
+  @ApiProperty()
   @Prop({
     default: UserStatus.Inactive,
     enum: TransformEnumToArray(UserStatus),
   })
   status: UserStatus;
 
+  @ApiProperty()
   @Prop([
     {
       type: String,
@@ -117,14 +129,17 @@ export class User extends BaseSchemaModel {
   ])
   team: UserTeam[];
 
+  @ApiProperty()
   @Prop({
     default: 'en',
   })
   language: string;
 
+  @ApiProperty()
   @Prop()
   location: string;
 
+  @ApiProperty()
   @Prop({
     ref: 'User',
     type: MongoSchema.Types.ObjectId,
