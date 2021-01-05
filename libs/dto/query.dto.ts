@@ -11,6 +11,7 @@ export class QueryDto {
   @ApiProperty({
     minimum: 1,
     default: 1,
+    required: false,
   })
   @Allow()
   @Min(1)
@@ -22,6 +23,7 @@ export class QueryDto {
     minimum: 1,
     maximum: 99,
     default: 25,
+    required: false,
   })
   @Allow()
   @Max(99)
@@ -30,18 +32,23 @@ export class QueryDto {
   @Transform((value) => parseInt(value || 10, 10))
   limit?: number = 25;
 
-  @ApiProperty()
+  @ApiProperty({
+    required: false,
+  })
   @Allow()
   @IsJSON()
   @IsOptional()
   filter?: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    required: false,
+  })
   @Allow()
   private sortField: string = 'createdAt';
 
   @ApiProperty({
     enum: SortDirection,
+    required: false,
   })
   @Allow()
   @IsEnum(SortDirection, { each: true })
