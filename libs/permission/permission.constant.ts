@@ -64,15 +64,21 @@ export const Permissions = {
     viewItem: 'viewAssetItem',
     editItem: 'editAssetItem',
   },
-  projects: {
-    create: 'createProject',
-    viewList: 'viewProjectsList',
-    viewItem: 'viewProject',
-    editItem: 'editProject',
-  },
   property: {
     create: 'createProperty',
     viewItem: 'viewProperty',
     editItem: 'editProperty',
+    viewList: 'viewPropertiesList',
+  },
+  building: {
+    create: 'createBuilding',
+    viewList: 'viewBuildingsList',
+    viewItem: 'viewBuilding',
+    editItem: 'editBuilding',
+    deleteBuilding: 'editBuilding',
+  },
+  revitPlugin: {
+    exportBuilding: 'exportBuilding',
+    exportModule: 'exportBuilding',
   },
 };
