@@ -34,6 +34,8 @@ export class QueryDto {
 
   @ApiProperty({
     required: false,
+    description:
+      'JSON string [{"field":"","search":"","condition":"EQ|GT|GTE|LT|LTE|IN|NOT|NE"}]',
   })
   @Allow()
   @IsJSON()
