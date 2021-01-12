@@ -2,14 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import {
   BadRequestException,
   INestApplication,
-  Inject,
   ValidationPipe,
 } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { DmTestingService } from '../libs/dm-testing/dm-testing.service';
 import { DmTestingModule } from '../libs/dm-testing/dm-testing.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
 let appInstance: INestApplication;
 
@@ -27,7 +25,7 @@ export async function GetE2eApplication(): Promise<INestApplication> {
           return {
             mongoUser: 'dtsurkan',
             mongoPass: 'DelM1969',
-            mongoCluster: 'cluster0',
+            mongoCluster: 'cluster0.x40fy',
           };
         },
       }),

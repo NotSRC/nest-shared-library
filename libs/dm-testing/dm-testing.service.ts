@@ -17,7 +17,7 @@ export class DmTestingService {
     const password = this.options.mongoPass;
     const cluster = this.options.mongoCluster;
     this.mongoose = await mongoose.connect(
-      `mongodb+srv://${user}:${password}@${cluster}.x40fy.mongodb.net/test`,
+      `mongodb+srv://${user}:${password}@${cluster}.mongodb.net/test`,
     );
   }
 
