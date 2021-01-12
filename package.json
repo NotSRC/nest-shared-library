@@ -1,6 +1,6 @@
 {
   "name": "shared-nest-library",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "",
   "author": "",
   "private": true,
@@ -26,6 +26,7 @@
     "files-crud/**/*",
     "exceptions/**/*",
     "permission/**/*",
+    "dm-testing/**/*",
     "schemas/**/*",
     "helpers/**/*",
     "logger/**/*",
