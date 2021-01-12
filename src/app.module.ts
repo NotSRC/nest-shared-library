@@ -30,5 +30,5 @@ import { FilesCrudModule, UserModule } from '../libs';
 export class AppModule {}
 
 function getMongoURI() {
-  return `mongodb+srv://webportal-stage:s1lDTtPEdUOogknd@cluster0.kkbg1.mongodb.net/WebApp?retryWrites=true&w=majority`;
+  return `mongodb+srv://dtsurkan:DelM1969@cluster0.x40fy.mongodb.net/test?retryWrites=true&w=majority`;
 }

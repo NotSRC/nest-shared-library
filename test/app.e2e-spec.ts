@@ -17,19 +17,7 @@ export async function GetE2eApplication(): Promise<INestApplication> {
   }
 
   const moduleFixture: TestingModule = await Test.createTestingModule({
-    imports: [
-      AppModule,
-      DmTestingModule.forRootAsync({
-        useFactory: async () => {
-          // console.log(configService);
-          return {
-            mongoUser: 'dtsurkan',
-            mongoPass: 'DelM1969',
-            mongoCluster: 'cluster0.x40fy',
-          };
-        },
-      }),
-    ],
+    imports: [AppModule, DmTestingModule],
   }).compile();
 
   appInstance = moduleFixture.createNestApplication();

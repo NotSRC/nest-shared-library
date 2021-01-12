@@ -1,38 +1,9 @@
-import { DynamicModule, Module, ModuleMetadata } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { DmTestingService } from './dm-testing.service';
-
-export interface DmTestModuleOptions {
-  mongoUser: string;
-  mongoPass: string;
-  mongoCluster: string;
-}
-
-export interface DmTestModuleAsyncOptions
-  extends Pick<ModuleMetadata, 'imports'> {
-  useFactory?: (
-    ...args: any[]
-  ) => Promise<DmTestModuleOptions> | DmTestModuleOptions;
-  inject?: any[];
-}
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
+  imports: [MongooseModule],
   providers: [DmTestingService],
 })
-export class DmTestingModule {
-  static forRootAsync(options: DmTestModuleAsyncOptions): DynamicModule {
-    return {
-      global: true,
-      module: DmTestingModule,
-      providers: [
-        DmTestingService,
-        {
-          provide: 'DmTestModuleOptions',
-          useFactory: options.useFactory,
-          inject: options.inject || [],
-        },
-      ],
-      exports: [DmTestingService],
-      imports: [...(options.imports || [])],
-    };
-  }
-}
+export class DmTestingModule {}

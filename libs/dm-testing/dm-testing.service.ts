@@ -1,43 +1,24 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as mongoose from 'mongoose';
-import { Mongoose } from 'mongoose';
-import { DmTestModuleOptions } from './dm-testing.module';
+import { Connection } from 'mongoose';
 import { e2eUser } from './dm-testing.constants';
+import { InjectConnection } from '@nestjs/mongoose';
 
 @Injectable()
 export class DmTestingService {
-  mongoose: Mongoose;
-
-  constructor(
-    @Inject('DmTestModuleOptions') private options: DmTestModuleOptions,
-  ) {}
-
-  async connectToDatabase() {
-    const user = this.options.mongoUser;
-    const password = this.options.mongoPass;
-    const cluster = this.options.mongoCluster;
-    this.mongoose = await mongoose.connect(
-      `mongodb+srv://${user}:${password}@${cluster}.mongodb.net/test`,
-    );
-  }
-
-  async disconnectFromDb() {
-    this.mongoose.disconnect();
-  }
+  constructor(@InjectConnection() private connection: Connection) {}
 
   async dropDatabase() {
-    mongoose.connection.db.dropDatabase();
+    this.connection.db.dropDatabase();
   }
 
   async initDatabase() {
-    await this.connectToDatabase();
     await this.dropDatabase();
     await this.setDefaultUser();
-    await this.disconnectFromDb();
   }
 
   async setDefaultUser() {
-    const userCollection = mongoose.connection.db.collection('user');
+    const userCollection = this.connection.db.collection('users');
     await userCollection.insertOne({
       email: e2eUser.email,
       password: e2eUser.passwordHash,
