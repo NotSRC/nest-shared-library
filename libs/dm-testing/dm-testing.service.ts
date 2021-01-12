@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 import { Mongoose } from 'mongoose';
-import { DmTestModuleOptions } from './dm-test.module';
-import { e2eUser } from './dm-test.constants';
+import { DmTestModuleOptions } from './dm-testing.module';
+import { e2eUser } from './dm-testing.constants';
 
 @Injectable()
-export class DmTestService {
+export class DmTestingService {
   mongoose: Mongoose;
 
   constructor(

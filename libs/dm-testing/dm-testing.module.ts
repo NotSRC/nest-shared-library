@@ -1,5 +1,5 @@
 import { DynamicModule, Module, ModuleMetadata } from '@nestjs/common';
-import { DmTestService } from './dm-test.service';
+import { DmTestingService } from './dm-testing.service';
 
 export interface DmTestModuleOptions {
   mongoUser: string;
@@ -16,22 +16,22 @@ export interface DmTestModuleAsyncOptions
 }
 
 @Module({
-  providers: [DmTestService],
+  providers: [DmTestingService],
 })
-export class DmTestModule {
+export class DmTestingModule {
   static forRootAsync(options: DmTestModuleAsyncOptions): DynamicModule {
     return {
       global: true,
-      module: DmTestModule,
+      module: DmTestingModule,
       providers: [
-        DmTestService,
+        DmTestingService,
         {
           provide: 'DmTestModuleOptions',
           useFactory: options.useFactory,
           inject: options.inject || [],
         },
       ],
-      exports: [DmTestService],
+      exports: [DmTestingService],
       imports: [...(options.imports || [])],
     };
   }

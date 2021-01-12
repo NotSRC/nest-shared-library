@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import { DmTestService } from '../libs/dm-test/dm-test.service';
-import { DmTestModule } from '../libs/dm-test/dm-test.module';
+import { DmTestingService } from '../libs/dm-testing/dm-testing.service';
+import { DmTestingModule } from '../libs/dm-testing/dm-testing.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 let appInstance: INestApplication;
@@ -21,7 +21,7 @@ export async function GetE2eApplication(): Promise<INestApplication> {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [
       AppModule,
-      DmTestModule.forRootAsync({
+      DmTestingModule.forRootAsync({
         useFactory: async () => {
           // console.log(configService);
           return {
@@ -47,14 +47,14 @@ export async function GetE2eApplication(): Promise<INestApplication> {
 }
 
 describe('AppController (e2e)', () => {
-  let testService: DmTestService;
+  let testService: DmTestingService;
   let app: INestApplication;
   let server: any;
 
   beforeEach(async () => {
     app = await GetE2eApplication();
     server = app.getHttpServer();
-    testService = appInstance.get(DmTestService);
+    testService = appInstance.get(DmTestingService);
     await testService.initDatabase();
     await app.init();
   });

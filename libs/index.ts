@@ -8,4 +8,4 @@ export * from './files-crud/src/index';
 export * from './notification/src/index';
 export * from './exceptions/index';
 export * from './models/base-schema.model';
-export * from './dm-test/index';
+export * from './dm-testing/index';
