@@ -6,7 +6,7 @@ import { InjectConnection } from '@nestjs/mongoose';
 
 @Injectable()
 export class DmTestingService {
-  constructor(@InjectConnection() private connection: Connection) {}
+  constructor(@InjectConnection() protected connection: Connection) {}
 
   async dropDatabase() {
     this.connection.db.dropDatabase();
