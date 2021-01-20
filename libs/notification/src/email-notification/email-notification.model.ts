@@ -3,6 +3,9 @@ export interface EmailNotificationModel {
   language: 'en' | 'ru';
   to: string; // Email to
   templateData: any;
+  from?: string;
+  replay?: boolean;
+  subject: string;
 }
 
 export enum EmailTemplate {

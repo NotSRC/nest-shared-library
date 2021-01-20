@@ -3,7 +3,8 @@ import { AppController } from './app.controller';
 import { LoggerModule } from '../libs/logger/src';
 import { LogLevel } from '@sentry/types';
 import { MongooseModule } from '@nestjs/mongoose';
-import { FilesCrudModule, UserModule } from '../libs';
+import { FilesCrudModule, NotificationModule, UserModule } from '../libs';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -23,6 +24,11 @@ import { FilesCrudModule, UserModule } from '../libs';
         useFindAndModify: false,
         useUnifiedTopology: true,
       }),
+    }),
+    ConfigModule,
+    NotificationModule.register({
+      host: 'localhost',
+      port: 4200,
     }),
   ],
   controllers: [AppController],

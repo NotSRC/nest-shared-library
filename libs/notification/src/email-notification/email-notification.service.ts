@@ -4,10 +4,9 @@ import { EmailNotificationModel } from './email-notification.model';
 
 @Injectable()
 export class EmailNotificationService {
-  constructor(@Inject('NOTIFICATION_SERVICE') private client: ClientProxy) {
-  }
+  constructor(@Inject('NOTIFICATION_SERVICE') private client: ClientProxy) {}
 
-  async send(data: EmailNotificationModel) {
-    this.client.emit('send-email', data);
+  send(data: EmailNotificationModel) {
+    return this.client.send('send-email', data).toPromise();
   }
 }
