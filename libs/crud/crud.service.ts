@@ -3,6 +3,7 @@ import {
   Document,
   DocumentQuery,
   FilterQuery,
+  MongooseDocument,
   PaginateModel,
   PaginateResult,
   Promise,
@@ -34,7 +35,7 @@ export abstract class CrudService<BaseModel extends BaseSchemaModel> {
     params: QueryDto,
     populate: QueryPopulateOptions[] = [],
     selectKeys?: string,
-  ): Promise<PaginateResult<BaseModel>> {
+  ): Promise<PaginateResult<BaseModel & MongooseDocument>> {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.paginate(query, {
