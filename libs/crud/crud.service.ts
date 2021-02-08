@@ -1,13 +1,13 @@
 import {
+  CreateQuery,
+  Document,
   DocumentQuery,
   FilterQuery,
   PaginateModel,
   PaginateResult,
   Promise,
   Query,
-  Document,
   QueryPopulateOptions,
-  CreateQuery,
   UpdateQuery,
 } from 'mongoose';
 import { FilterService } from '../filter/filter.service';
@@ -16,18 +16,25 @@ import { QueryDto } from '../dto/query.dto';
 import { DmLoggerService } from '../logger/src';
 import { BaseSchemaModel } from '../models/base-schema.model';
 
-export abstract class CrudService<T extends BaseSchemaModel> {
+export abstract class CrudService<BaseModel extends BaseSchemaModel> {
   constructor(
-    protected stateModel: PaginateModel<T & any>,
+    protected stateModel: PaginateModel<BaseModel & Document>,
     protected logger: DmLoggerService,
   ) {}
 
+  /**
+   * Find many items with pagination and default filters
+   * @param conditions
+   * @param params
+   * @param populate
+   * @param selectKeys
+   */
   findMany(
-    conditions: FilterQuery<T>,
+    conditions: FilterQuery<BaseModel>,
     params: QueryDto,
     populate: QueryPopulateOptions[] = [],
     selectKeys?: string,
-  ): Promise<PaginateResult<T>> {
+  ): Promise<PaginateResult<BaseModel>> {
     const query = this.buildQuery(conditions, params.filter);
     try {
       return this.stateModel.paginate(query, {
@@ -43,40 +50,73 @@ export abstract class CrudService<T extends BaseSchemaModel> {
     }
   }
 
-  getTotalCount(conditions: FilterQuery<T>, params: QueryDto): Query<number> {
-    const query = this.buildQuery(conditions, params.filter);
+  /**
+   * Get total count of items with default filters
+   * @param conditions
+   * @param params
+   */
+  getTotalCount(
+    conditions: FilterQuery<BaseModel>,
+    params: QueryDto,
+  ): Query<number> {
+    const query: FilterQuery<BaseModel> = this.buildQuery(
+      conditions,
+      params.filter,
+    );
     try {
-      return this.stateModel.countDocuments(query);
+      return this.stateModel.countDocuments(query as any);
     } catch (e) {
       this.logger.error(e, 'CrudService->getTotalCount');
       throw e;
     }
   }
 
+  /**
+   * Get one item
+   * @param conditions
+   */
   findOne(
-    conditions: FilterQuery<T>,
-  ): DocumentQuery<T | null, T & Document, {}> & {} {
+    conditions: FilterQuery<BaseModel>,
+  ): DocumentQuery<BaseModel, BaseModel & Document, {}> {
     try {
-      return this.stateModel.findOne(conditions);
+      return this.stateModel.findOne(conditions as any);
     } catch (e) {
       this.logger.error(e, 'CrudService->findOne');
       throw e;
     }
   }
 
-  createItem(data: Partial<CreateQuery<T>>): Promise<T & Document> {
+  /**
+   * Create item
+   * @param data
+   */
+  async createItem(
+    data: Partial<CreateQuery<BaseModel>>,
+  ): Promise<BaseModel & Document> {
     try {
-      return this.stateModel.create(data as CreateQuery<T>);
+      return await this.stateModel.create(data as CreateQuery<BaseModel>);
     } catch (e) {
       this.logger.error(e, 'CrudService->createItem');
       throw e;
     }
   }
 
-  async updateItem(conditions: FilterQuery<T>, data: Partial<UpdateQuery<T>>) {
+  /**
+   * Update item
+   * @param conditions
+   * @param data
+   */
+  async updateItem(
+    conditions: FilterQuery<BaseModel>,
+    data: Partial<UpdateQuery<BaseModel>>,
+  ) {
     try {
-      if (await this.stateModel.updateOne(conditions, data).exec()) {
-        return this.stateModel.findOne(conditions);
+      if (
+        (
+          await this.stateModel.updateOne(conditions as any, data as any).exec()
+        )?.toJSON()
+      ) {
+        return await this.stateModel.findOne(conditions as any);
       } else {
         return null;
       }
@@ -86,21 +126,56 @@ export abstract class CrudService<T extends BaseSchemaModel> {
     }
   }
 
-  async deleteItem(conditions: FilterQuery<T>) {
+  /**
+   * Soft delete item
+   * Method update isRemoved field to true
+   * @param conditions
+   */
+  softDeleteItem(conditions: FilterQuery<BaseModel>) {
     try {
       // @ts-ignore
       return this.updateItem(conditions, { isRemoved: true });
     } catch (e) {
-      this.logger.error(e, 'CrudService->deleteItem');
+      this.logger.error(e, 'CrudService->softDeleteItem');
       throw e;
     }
   }
 
-  protected generateFilter(params: FilterQuery<T>) {
+  /**
+   * Hard delete item
+   * @param conditions
+   */
+  hardDeleteItem(conditions: FilterQuery<BaseModel>) {
+    try {
+      // @ts-ignore
+      return this.stateModel.deleteOne(conditions);
+    } catch (e) {
+      this.logger.error(e, 'CrudService->hardDeleteItem');
+      throw e;
+    }
+  }
+
+  /**
+   * Generate filter with defaults
+   * @param params
+   * @protected
+   */
+  protected generateFilter(
+    params: FilterQuery<BaseModel>,
+  ): FilterQuery<BaseModel> {
     return { isRemoved: false, ...params };
   }
 
-  protected buildQuery(conditions: FilterQuery<T>, filterJSON: string) {
+  /**
+   * Build query with filters and defaults
+   * @param conditions
+   * @param filterJSON
+   * @protected
+   */
+  protected buildQuery(
+    conditions: FilterQuery<BaseModel>,
+    filterJSON: string,
+  ): FilterQuery<BaseModel> {
     const filterParams = this.getAvailableFilters(filterJSON);
     const params = {
       ...conditions,
@@ -113,6 +188,11 @@ export abstract class CrudService<T extends BaseSchemaModel> {
     return this.generateFilter(params);
   }
 
+  /**
+   * Validate filters
+   * @param filterJSON
+   * @protected
+   */
   protected getAvailableFilters(filterJSON: string) {
     const filterService = new FilterService(filterJSON);
 
