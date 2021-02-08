@@ -113,9 +113,10 @@ export abstract class CrudService<BaseModel extends BaseSchemaModel> {
   ) {
     try {
       if (
-        (
-          await this.stateModel.updateOne(conditions as any, data as any).exec()
-        )?.toJSON()
+        await this.stateModel
+          .updateOne(conditions as any, data as any)
+          .lean()
+          .exec()
       ) {
         return await this.stateModel.findOne(conditions as any);
       } else {
