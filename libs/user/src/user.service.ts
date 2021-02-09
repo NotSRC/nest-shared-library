@@ -26,6 +26,6 @@ export class UserService extends CrudService<User> {
   }
 
   findOneByEmail(conditions: FilterQuery<User>) {
-    return super.findOne(conditions).exec();
+    return super.findOne(conditions);
   }
 }
