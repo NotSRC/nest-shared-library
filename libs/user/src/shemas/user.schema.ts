@@ -142,8 +142,8 @@ export class User extends BaseSchemaModel {
   language: string;
 
   @ApiProperty()
-  @Prop()
-  location: string;
+  @Prop({ ref: 'Location' })
+  location: MongoSchema.Types.ObjectId;
 
   @ApiProperty()
   @Prop({

@@ -4,7 +4,7 @@ import { LoggerModule } from '../libs/logger/src';
 import { LogLevel } from '@sentry/types';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FilesCrudModule, NotificationModule, UserModule } from '../libs';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
