@@ -78,7 +78,6 @@ export const Permissions = {
     deleteBuilding: 'editBuilding',
   },
   revitPlugin: {
-    exportBuilding: 'exportBuilding',
-    exportModule: 'exportBuilding',
+    authorize: 'authorize',
   },
 };
